@@ -11,6 +11,7 @@
 </head>
 
 <body>
+{% block content %}
   <div id="header">
     <span class="logo">VIDYARTHI</span>
     {% if request.user.is_authenticated %}
@@ -47,9 +48,8 @@
   </ul>
     {% endif %}
   <div class="content">
-    {% block content %}
-    {% endblock %}
   </div>
+  {% endblock %}
 
 </body>
 
