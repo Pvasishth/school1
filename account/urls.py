@@ -1,12 +1,13 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from .import views
-
+app_name = 'account'
 
 urlpatterns = [
   
  
   path('', views.dashboard , name='dashboard'),
+  path('alert/create/', views.create_alert,name='create_alert'),
   path('login/',auth_views.LoginView.as_view() , name='login'),
   path('logout/',auth_views.LogoutView.as_view() , name='logged_out'),
   path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),

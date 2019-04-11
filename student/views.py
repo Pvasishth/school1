@@ -16,3 +16,5 @@ def student_basic_info(request):
     else:
         basic_student = StudentProfileForm(instance= request.user.studentprofile)
     return render(request,'profile.html',{'basic_student':basic_student})
+def index(request):
+    return render(request,'student/adminlte/index.html')

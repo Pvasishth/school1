@@ -5,9 +5,9 @@ from .models import  SchoolProfile , MediaUpload
 from .forms import UserRegistrationForm,MediaUploadForm,SchoolProfileForm
 
 
-@login_required
+
 def dashboard(request):
-    return render(request, 'account/dashboard.html', {'section':dashboard})
+    return render(request, 'account/adminlte/index.html')
 
 def register(request):
 
@@ -58,3 +58,7 @@ def basic_info(request):
     else:
         basic = SchoolProfileForm(instance = request.user.schoolprofile)
     return render(request,'account/profile.html',{'basic':basic})
+
+
+def create_alert(request):
+    pass

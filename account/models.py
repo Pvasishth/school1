@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django import forms
+from django.utils import timezone
 from django.core.validators import RegexValidator
 
 class SchoolProfile(models.Model):
@@ -37,3 +37,9 @@ class MediaUpload(models.Model):
   video2 = models.URLField(null = True , blank = True)
   #files
   school_brouche = models.FileField(null = True , blank = True)
+
+
+class Alert(models.Model):
+  Title = models.CharField(max_length=50, default=True)
+  Message = models.TextField(default=True)
+  create_date = models.DateTimeField(timezone.now())

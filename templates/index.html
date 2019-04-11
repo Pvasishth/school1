@@ -1,0 +1,19 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+{% load static %}
+
+
+{% block content %}
+    <div class="jumbotron">
+        <a href="{% url 'account:dashboard' %}"><button  class="btn btn-primary">Account</button></a>
+        <a class="align-center" href="{% url 'student:home' %}"><button class="btn btn-danger">Student</button></a>
+    </div>
+
+{% endblock %}
+

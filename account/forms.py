@@ -34,3 +34,6 @@ class SchoolProfileForm(forms.ModelForm):
     exclude = ('principal',)
 
 
+class Alert(forms.ModelForm):
+    class Meta:
+        fields = '__all__'
