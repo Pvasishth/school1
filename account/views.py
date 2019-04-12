@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from .models import  SchoolProfile , MediaUpload
-from .forms import UserRegistrationForm,MediaUploadForm,SchoolProfileForm
+from .forms import UserRegistrationForm,MediaUploadForm,SchoolProfileForm,Alert_form
 
 
 
@@ -61,4 +60,10 @@ def basic_info(request):
 
 
 def create_alert(request):
-    pass
+    if request.method == 'POST':
+        alert_form = Alert_form(request.POST)
+        if alert_form.is_valid():
+            alert_form = alert_form.save(commit=False)
+    else:
+        alert_form = Alert_form()
+    return render(request, 'account/adminlte/create_alert.html',{'form':alert_form})

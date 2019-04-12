@@ -1,10 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils import timezone
 from django.core.validators import RegexValidator
 
 class SchoolProfile(models.Model):
-
   principal = models.OneToOneField(User,on_delete = models.CASCADE, related_name = 'schoolprofile')
   school_name = models.CharField(max_length = 20 , null =True ,blank = True)
   username = models.CharField(max_length=25, unique=True, default='')
@@ -42,4 +40,4 @@ class MediaUpload(models.Model):
 class Alert(models.Model):
   Title = models.CharField(max_length=50, default=True)
   Message = models.TextField(default=True)
-  create_date = models.DateTimeField(timezone.now())
+  Date = models.DateField(auto_now=True)
