@@ -19,4 +19,8 @@ urlpatterns = [
   path('register/',views.register, name='register'),
   path('account/profile_edit/',views.basic_info ,name = 'edit_profile'),
   path('account/media_upload/',views.edit_media , name = 'edit_media'),
+
+
+  #All Student url
+  path('student/add', views.create_student, name='create_student'),
 ]

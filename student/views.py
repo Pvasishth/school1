@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import  StudentProfile 
+from account.models import  SchoolProfile
 from .forms import StudentProfileForm
 
 # Create your views here.
@@ -18,3 +18,9 @@ def student_basic_info(request):
     return render(request,'profile.html',{'basic_student':basic_student})
 def index(request):
     return render(request,'student/adminlte/index.html')
+
+
+def student_feed(request):
+    StudentName = SchoolProfile.objects.all()
+    print(StudentName)
+    return render(request, 'student/dashbord/student_feed.html',{'student_name':StudentName})

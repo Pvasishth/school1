@@ -1,5 +1,7 @@
 {% extends 'student/adminlte/base.html' %}
 
-{% block content %}
-<h1>hello from student</h1>
+{% block content_block_wrap  %}
+
+    {% include 'student/dashbord/student_feed.html' %}
+
 {% endblock %}

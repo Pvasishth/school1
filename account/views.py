@@ -2,8 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import  SchoolProfile , MediaUpload
 from .forms import UserRegistrationForm,MediaUploadForm,SchoolProfileForm,Alert_form
-
-
+from student.forms import StudentProfileForm
 
 def dashboard(request):
     return render(request, 'account/adminlte/index.html')
@@ -61,9 +60,21 @@ def basic_info(request):
 
 def create_alert(request):
     if request.method == 'POST':
-        alert_form = Alert_form(request.POST)
-        if alert_form.is_valid():
-            alert_form = alert_form.save(commit=False)
+            alert_form = Alert_form(request.POST)
+            if alert_form.is_valid():
+                alert_form = alert_form.save()
+
     else:
         alert_form = Alert_form()
-    return render(request, 'account/adminlte/create_alert.html',{'form':alert_form})
+    return render(request, 'account/adminlte/create_alert.html',{'form': alert_form})
+
+
+
+def create_student(request):
+    if request.method == 'POST':
+        form =StudentProfileForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = StudentProfileForm()
+    return render(request, 'student/adminlte/create_student.html',{'s_form': form})
