@@ -1,10 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django import forms
 from django.core.validators import RegexValidator
 
 class SchoolProfile(models.Model):
-
   principal = models.OneToOneField(User,on_delete = models.CASCADE, related_name = 'schoolprofile')
   school_name = models.CharField(max_length = 20 , null =True ,blank = True)
   username = models.CharField(max_length=25, unique=True, default='')
@@ -37,3 +35,13 @@ class MediaUpload(models.Model):
   video2 = models.URLField(null = True , blank = True)
   #files
   school_brouche = models.FileField(null = True , blank = True)
+
+
+class Alert(models.Model):
+  Title = models.CharField(max_length=50, default=True)
+  Message = models.TextField(default=True)
+  Date = models.DateField(auto_now=True)
+
+
+  def __str__(self):
+    return self.Title

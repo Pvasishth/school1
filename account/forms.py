@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import SchoolProfile,MediaUpload
+from .models import SchoolProfile,MediaUpload,Alert
 
 class UserRegistrationForm(forms.ModelForm):
 
@@ -34,3 +34,7 @@ class SchoolProfileForm(forms.ModelForm):
     exclude = ('principal',)
 
 
+class Alert_form(forms.ModelForm):
+    class Meta:
+        model = Alert
+        fields = '__all__'

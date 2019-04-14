@@ -14,3 +14,6 @@ class StudentProfile(models.Model):
   phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
     message="Phone number must be entered in the format: '8885559997'. Up to 12 digits allowed along with country code.")
   guardian_mobile_number = models.CharField(validators=[phone_regex], max_length=12, blank=True)
+
+  def __str__(self):
+    return self.student_name
