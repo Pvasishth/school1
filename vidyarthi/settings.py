@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_adminlte_theme',
 
 ]
+AUTH_USER_MODEL = 'account.User'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logged_out'

@@ -3,6 +3,49 @@ from django.contrib.auth.models import User
 from django import forms
 from .models import SchoolProfile,MediaUpload,Alert
 
+
+##################################################################################################33
+from .models import User
+from django.contrib.auth.forms import UserCreationForm
+
+
+class StudentSignUpForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = User
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.is_student = True
+        if commit:
+            user.save()
+        return user
+
+
+class TeacherSignUpForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = User
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.is_teacher = True
+        if commit:
+            user.save()
+        return user
+
+class PrincipalSignUpForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = User
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.is_principal = True
+        if commit:
+            user.save()
+        return user
+
+####################################################################################################3
+
+
 class UserRegistrationForm(forms.ModelForm):
 
 
