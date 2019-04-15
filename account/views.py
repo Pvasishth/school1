@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import  SchoolProfile , MediaUpload
-from .forms import UserRegistrationForm,MediaUploadForm,SchoolProfileForm,Alert_form
+from .forms import UserRegistrationForm,MediaUploadForm,SchoolProfileForm
 from student.forms import StudentProfileForm
 
 def dashboard(request):

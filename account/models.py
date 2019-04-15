@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+from django.utils import timezone
 
 class SchoolProfile(models.Model):
   principal = models.OneToOneField(User,on_delete = models.CASCADE, related_name = 'schoolprofile')
@@ -21,11 +22,14 @@ class SchoolProfile(models.Model):
 
   #school website
   website = models.URLField(null = True , blank = True)
-
 #for uploading the media by the school 
 
 class MediaUpload(models.Model):
   SchoolProfile = models.ForeignKey(SchoolProfile,on_delete = models.CASCADE, related_name = 'MediaUpload')
+
+  Title = models.CharField(max_length=50, default=True)
+  Message = models.TextField(default=True)
+  Date = models.DateField(default=timezone.now)
   #images
   cover_photo = models.ImageField(null = True , blank = True)
   photo1 = models.ImageField(null = True , blank = True)
@@ -37,10 +41,6 @@ class MediaUpload(models.Model):
   school_brouche = models.FileField(null = True , blank = True)
 
 
-class Alert(models.Model):
-  Title = models.CharField(max_length=50, default=True)
-  Message = models.TextField(default=True)
-  Date = models.DateField(auto_now=True)
 
 
   def __str__(self):

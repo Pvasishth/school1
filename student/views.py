@@ -21,6 +21,5 @@ def index(request):
 
 
 def student_feed(request):
-    StudentName = SchoolProfile.objects.all()
-    print(StudentName)
+
     return render(request, 'student/dashbord/student_feed.html',{'student_name':StudentName})
