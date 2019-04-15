@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from account.models import  SchoolProfile
 from .forms import StudentProfileForm
+from account.models import Alert
 
 # Create your views here.
 @login_required
@@ -21,5 +22,5 @@ def index(request):
 
 
 def student_feed(request):
-
-    return render(request, 'student/dashbord/student_feed.html',{'student_name':StudentName})
+    alert = Alert.objects.all()
+    return render(request, 'student/dashbord/student_feed.html',{'alert':alert})

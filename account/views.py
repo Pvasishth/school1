@@ -1,8 +1,59 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import  SchoolProfile , MediaUpload
-from .forms import UserRegistrationForm,MediaUploadForm,SchoolProfileForm
+from .forms import UserRegistrationForm,MediaUploadForm,SchoolProfileForm,Alert_form
 from student.forms import StudentProfileForm
+
+##########################################################################################################
+from django.views.generic import CreateView
+from .forms import StudentSignUpForm, TeacherSignUpForm, PrincipalSignUpForm
+from django.contrib.auth import login
+from .models import  User
+from django.shortcuts import redirect
+
+class StudentSignUpView(CreateView):
+    model = User
+    form_class = StudentSignUpForm
+    template_name = 'registration/signup_form.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'student'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('dashboard')
+
+class TeacherSignUpView(CreateView):
+    model = User
+    form_class = TeacherSignUpForm
+    template_name = 'registration/signup_form.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'teacher'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('dashboard')
+
+
+class PrincipalSignUpView(CreateView):
+    model = User
+    form_class = PrincipalSignUpForm
+    template_name = 'registration/signup_form.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'principal'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('dashboard')
+#############################################################################################################
 
 def dashboard(request):
     return render(request, 'account/adminlte/index.html')
@@ -64,9 +115,12 @@ def create_alert(request):
             if alert_form.is_valid():
                 alert_form = alert_form.save()
 
-    else:
-        alert_form = Alert_form()
-    return render(request, 'account/adminlte/create_alert.html',{'form': alert_form})
+    form = Alert_form(request.POST or None)
+    if form.is_valid():
+        title = form.cleaned_data.get('title')
+        form = Alert.objects.create(title=title)
+
+    return render(request, 'account/adminlte/create_alert.html',{'form': form})
 
 
 

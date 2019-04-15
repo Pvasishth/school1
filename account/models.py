@@ -3,6 +3,17 @@ from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.utils import timezone
 
+#####################################################
+from django.contrib.auth.models import AbstractUser
+#from django.utils.html import escape, mark_safe
+
+class User(AbstractUser):
+    is_student = models.BooleanField(default=False)
+    is_teacher = models.BooleanField(default=False)
+    is_principal = models.BooleanField(default=False)
+
+#####################################################
+
 class SchoolProfile(models.Model):
   principal = models.OneToOneField(User,on_delete = models.CASCADE, related_name = 'schoolprofile')
   school_name = models.CharField(max_length = 20 , null =True ,blank = True)
@@ -22,6 +33,7 @@ class SchoolProfile(models.Model):
 
   #school website
   website = models.URLField(null = True , blank = True)
+
 #for uploading the media by the school 
 
 class MediaUpload(models.Model):
@@ -41,7 +53,11 @@ class MediaUpload(models.Model):
   school_brouche = models.FileField(null = True , blank = True)
 
 
+class Alert(models.Model):
+  Title = models.CharField(max_length=50, default=True)
+  Message = models.TextField(default=True)
+  Date = models.DateField(auto_now=True)
 
 
   def __str__(self):
-    return self.Title
+    return self.title
