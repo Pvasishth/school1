@@ -87,12 +87,25 @@ WSGI_APPLICATION = 'vidyarthi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
+if not DEBUG:
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+else:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'root1234',
+        'HOST': '35.198.232.86',
+        'PORT': '5432',
+    }
+}
+
 
 
 
