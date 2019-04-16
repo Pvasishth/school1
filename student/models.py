@@ -22,11 +22,11 @@ class StudentProfile(models.Model):
     parents_email_id = models.EmailField(null=True, blank=True)
     student_email_id = models.EmailField(null=True, blank=True)
     family_photo = models.ImageField(default=False)
-    date_of_birth = models.DateField(null=True, blank=True)
+    # date_of_birth = models.DateField(null=True, blank=True)
     home_address = models.CharField(max_length=60, null=True, blank=True)
 
     def __str__(self):
-        return self.student_name
+        return self.student
 
 
 

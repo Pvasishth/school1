@@ -57,6 +57,9 @@ class Alert(models.Model):
   Title = models.CharField(max_length=50, default=True)
   Message = models.TextField(default=True)
   Date = models.DateField(auto_now=True)
+  image = models.ImageField(null=True, blank=True)
+  video = models.FileField(null=True, blank=True)
+
 
 
   def __str__(self):
