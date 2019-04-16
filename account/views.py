@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import  SchoolProfile , MediaUpload
+from .models import  SchoolProfile , MediaUpload,Alert
 from .forms import UserRegistrationForm,MediaUploadForm,SchoolProfileForm,Alert_form
 from student.forms import StudentProfileForm
 
@@ -132,3 +132,8 @@ def create_student(request):
     else:
         form = StudentProfileForm()
     return render(request, 'student/adminlte/create_student.html',{'s_form': form})
+
+
+def feeds(request):
+    alert = Alert.objects.all()
+    return render(request, 'account/dashbord/feeds.html',{'alert':alert})

@@ -6,6 +6,6 @@ app_name = 'student'
 urlpatterns = [
   path('student/basic/',views.student_basic_info , name='basic_student'),
   path('',views.index,name='home'),
-  path('feeds/', views.student_feed, name='feeds')
+  path('feeds/', views.feed, name='feeds')
 
 ]

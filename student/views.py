@@ -17,10 +17,12 @@ def student_basic_info(request):
     else:
         basic_student = StudentProfileForm(instance= request.user.studentprofile)
     return render(request,'profile.html',{'basic_student':basic_student})
+
+
 def index(request):
-    return render(request,'student/adminlte/index.html')
+    return render(request,'student/adminlte/index.html',{})
 
 
-def student_feed(request):
+def feed(request):
     alert = Alert.objects.all()
     return render(request, 'student/dashbord/student_feed.html',{'alert':alert})
