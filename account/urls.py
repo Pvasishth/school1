@@ -9,7 +9,7 @@ urlpatterns = [
  
   path('', views.dashboard , name='dashboard'),
   path('alert/create/', views.create_alert,name='create_alert'),
-  path('student/create/',views.create_student,name='create_student'),
+  # path('student/create/',views.create_student,name='create_student'),
   path('login/',auth_views.LoginView.as_view() , name='login'),
   path('logout/',auth_views.LogoutView.as_view() , name='logged_out'),
   path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
@@ -30,5 +30,5 @@ urlpatterns = [
 
 
   #All Student url
-  # path('student/create', views.create_student, name='create_student'),
+  path('student/add', views.create_student, name='create_student'),
 ]

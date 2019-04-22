@@ -101,13 +101,12 @@ def edit_media(request):
 @login_required
 def basic_info(request):
     if request.method == 'POST':
-        basic = SchoolProfileForm(instance = request.user.schoolprofile,
-                                data = request.POST)
+        basic = SchoolProfileForm(data = request.POST)
         if basic.is_valid():
             basic = basic.save(commit = False)
             basic.save()
     else:
-        basic = SchoolProfileForm(instance = request.user.schoolprofile)
+        basic = SchoolProfileForm()
     return render(request,'account/profile.html',{'basic':basic})
 
 
@@ -124,6 +123,7 @@ def create_alert(request):
 
 
 def create_student(request):
+
     if request.method == 'POST':
         form = StudentProfileForm(data=request.POST)
         if form.is_valid():
