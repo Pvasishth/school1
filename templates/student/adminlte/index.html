@@ -1,7 +1,20 @@
 {% extends 'student/adminlte/base.html' %}
 
-{% block content_block_wrap  %}
+{% load bootstrap3 %}
 
-    {% include 'student/dashbord/student_feed.html' %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+{# Display a form #}
+
+
+{% block content %}
+
+    <div class="content-header">
+
+        <h1>Dashboard coming soon!!!</h1>
+</div>
 {% endblock %}

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from account.models import  SchoolProfile
 from .forms import StudentProfileForm
+from account.models import Alert
 
 # Create your views here.
 @login_required
@@ -16,11 +17,12 @@ def student_basic_info(request):
     else:
         basic_student = StudentProfileForm(instance= request.user.studentprofile)
     return render(request,'profile.html',{'basic_student':basic_student})
+
+
 def index(request):
-    return render(request,'student/adminlte/index.html')
+    return render(request,'student/adminlte/index.html',{})
 
 
-def student_feed(request):
-    StudentName = SchoolProfile.objects.all()
-    print(StudentName)
-    return render(request, 'student/dashbord/student_feed.html',{'student_name':StudentName})
+def feed(request):
+    alert = Alert.objects.all()
+    return render(request, 'student/dashbord/student_feed.html',{'alert':alert})

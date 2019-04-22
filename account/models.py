@@ -1,6 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+from django.utils import timezone
+
+#####################################################
+from django.contrib.auth.models import AbstractUser
+#from django.utils.html import escape, mark_safe
+
+class User(AbstractUser):
+    is_student = models.BooleanField(default=False)
+    is_teacher = models.BooleanField(default=False)
+    is_principal = models.BooleanField(default=False)
+
+
+
+#####################################################
 
 #####################################################
 from django.contrib.auth.models import AbstractUser
@@ -37,6 +51,10 @@ class SchoolProfile(models.Model):
 
 class MediaUpload(models.Model):
   SchoolProfile = models.ForeignKey(SchoolProfile,on_delete = models.CASCADE, related_name = 'MediaUpload')
+
+  Title = models.CharField(max_length=50, default=True)
+  Message = models.TextField(default=True)
+  Date = models.DateField(default=timezone.now)
   #images
   cover_photo = models.ImageField(null = True , blank = True)
   photo1 = models.ImageField(null = True , blank = True)
@@ -49,10 +67,13 @@ class MediaUpload(models.Model):
 
 
 class Alert(models.Model):
-  Title = models.CharField(max_length=50, default=True)
-  Message = models.TextField(default=True)
-  Date = models.DateField(auto_now=True)
+  title = models.CharField(max_length=50)
+  message = models.TextField()
+  date = models.DateField(auto_now=True)
+  image = models.ImageField(null=True, blank=True)
+  video = models.FileField(null=True, blank=True)
+
 
 
   def __str__(self):
-    return self.Title
+    return self.title

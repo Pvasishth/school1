@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render , HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import  SchoolProfile , MediaUpload
+from .models import  SchoolProfile , MediaUpload,Alert
 from .forms import UserRegistrationForm,MediaUploadForm,SchoolProfileForm,Alert_form
 from student.forms import StudentProfileForm
 
@@ -52,7 +52,7 @@ class PrincipalSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('dashboard')        
+        return redirect('dashboard')
 #############################################################################################################
 
 def dashboard(request):
@@ -115,9 +115,12 @@ def create_alert(request):
             if alert_form.is_valid():
                 alert_form = alert_form.save()
 
-    else:
-        alert_form = Alert_form()
-    return render(request, 'account/adminlte/create_alert.html',{'form': alert_form})
+    form = Alert_form(request.POST or None)
+    if form.is_valid():
+        title = form.cleaned_data.get('title')
+        form = Alert.objects.create(title=title)
+
+    return render(request, 'account/adminlte/create_alert.html',{'form': form})
 
 
 
@@ -129,3 +132,12 @@ def create_student(request):
     else:
         form = StudentProfileForm()
     return render(request, 'student/adminlte/create_student.html',{'s_form': form})
+
+
+def feeds(request):
+    alert = Alert.objects.all()
+    return render(request, 'account/dashbord/feeds.html',{'alert':alert})
+
+
+def add_class(request):
+    return render(request, 'account/dashbord/add_class.html',{})
