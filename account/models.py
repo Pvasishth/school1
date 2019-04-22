@@ -12,6 +12,8 @@ class User(AbstractUser):
     is_teacher = models.BooleanField(default=False)
     is_principal = models.BooleanField(default=False)
 
+
+
 #####################################################
 
 class SchoolProfile(models.Model):

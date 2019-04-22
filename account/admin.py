@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import SchoolProfile,MediaUpload,Alert
+from .models import SchoolProfile,MediaUpload,Alert,User
 
 class MediaUploadAdmin(admin.StackedInline):
         model = MediaUpload
@@ -14,3 +14,5 @@ class SchoolProfileAdmin(admin.ModelAdmin):
 @admin.register(Alert)
 class Alert(admin.ModelAdmin):
         list_display = ['__str__']
+
+admin.site.register(User)

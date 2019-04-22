@@ -131,7 +131,7 @@ def create_student(request):
             form.save()
     else:
         form = StudentProfileForm()
-    return render(request, 'student/adminlte/create_student.html',{'s_form': form})
+    return render(request, 'student/adminlte/create_student.html',{'form': form})
 
 
 def feeds(request):
