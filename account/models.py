@@ -49,10 +49,12 @@ class MediaUpload(models.Model):
 
 
 class Alert(models.Model):
-  Title = models.CharField(max_length=50, default=True)
-  Message = models.TextField(default=True)
-  Date = models.DateField(auto_now=True)
+  title = models.CharField(max_length=50, default=True)
+  message = models.TextField(default=True)
+  image = models.ImageField(null=True,blank=True)
+  video = models.FileField(null=True,blank=True)
+  date = models.DateField(auto_now=True)
 
 
   def __str__(self):
-    return self.Title
+    return self.title

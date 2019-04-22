@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import  SchoolProfile , MediaUpload
+from .models import SchoolProfile
 from .forms import UserRegistrationForm,MediaUploadForm,SchoolProfileForm,Alert_form
 from student.forms import StudentProfileForm
 
+
+# for the custum user #
 ##########################################################################################################
 from django.views.generic import CreateView
 from .forms import StudentSignUpForm, TeacherSignUpForm, PrincipalSignUpForm
@@ -111,21 +113,27 @@ def basic_info(request):
 
 def create_alert(request):
     if request.method == 'POST':
-            alert_form = Alert_form(request.POST)
-            if alert_form.is_valid():
-                alert_form = alert_form.save()
-
+            form = Alert_form(data=request.POST)
+            if form.is_valid():
+                form.save(commit=False)
+                form.save()
+                return HttpResponse('submit')
     else:
-        alert_form = Alert_form()
-    return render(request, 'account/adminlte/create_alert.html',{'form': alert_form})
-
+        form = Alert_form()
+    return render(request,'account/adminlte/create_alert.html',{'form':form})
 
 
 def create_student(request):
     if request.method == 'POST':
-        form =StudentProfileForm(request.POST)
+        form = StudentProfileForm(data=request.POST)
         if form.is_valid():
+            form.save(commit=False)
             form.save()
+        return HttpResponse('done')
+
     else:
         form = StudentProfileForm()
-    return render(request, 'student/adminlte/create_student.html',{'s_form': form})
+    return render(request, 'student/adminlte/create_student.html', {'s_form': form})
+
+
+

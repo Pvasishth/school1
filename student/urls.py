@@ -4,7 +4,8 @@ from .import views
 app_name = 'student'
 
 urlpatterns = [
+  path('',views.index,name='home'),
   path('student/basic/',views.student_basic_info , name='basic_student'),
-  path('',views.index,name='home')
+
 
 ]

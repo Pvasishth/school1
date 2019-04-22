@@ -1,6 +1,7 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from .import views
+from student import urls
 app_name = 'account'
 
 urlpatterns = [
@@ -8,6 +9,7 @@ urlpatterns = [
  
   path('', views.dashboard , name='dashboard'),
   path('alert/create/', views.create_alert,name='create_alert'),
+  path('student/create/',views.create_student,name='create_student'),
   path('login/',auth_views.LoginView.as_view() , name='login'),
   path('logout/',auth_views.LogoutView.as_view() , name='logged_out'),
   path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
@@ -20,7 +22,7 @@ urlpatterns = [
   path('account/profile_edit/',views.basic_info ,name = 'edit_profile'),
   path('account/media_upload/',views.edit_media , name = 'edit_media'),
 
-    ###########################################################################################################
+  #####################################################################################################################
   path('account/signup/student/', views.StudentSignUpView.as_view(), name='student_signup'),
   path('account/signup/teacher/', views.TeacherSignUpView.as_view(), name='teacher_signup'),
   path('account/signup/principal/', views.PrincipalSignUpView.as_view(), name='principal_signup'),
@@ -28,5 +30,5 @@ urlpatterns = [
 
 
   #All Student url
-  path('student/add', views.create_student, name='create_student'),
+  # path('student/create', views.create_student, name='create_student'),
 ]
