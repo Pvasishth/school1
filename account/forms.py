@@ -1,8 +1,7 @@
-from django.forms import ModelForm
-from django.contrib.auth.models import User
 from django import forms
 from .models import SchoolProfile,MediaUpload,Alert
 from student.models import StudentProfile
+from employes.models import *
 
 
 ##################################################################################################33
@@ -88,3 +87,9 @@ class StudentProfileForm(forms.ModelForm):
     model = StudentProfile
     fields = '__all__'
     exclude=('student',)
+
+class TeacherForm(forms.ModelForm):
+    class Meta:
+        model = Teacher
+        fields = '__all__'
+

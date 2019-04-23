@@ -2,17 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from account.models import User
+from schoolclasses.models import *
 
 
 class StudentProfile(models.Model):
-    student = models.OneToOneField(User, on_delete=models.CASCADE, related_name='studentprofile')
     student_name = models.CharField(max_length=20, null=True, blank=True)
-    student_class = models.PositiveIntegerField(null=True, blank=True)
-    student_section = models.CharField(max_length=5, null=True, blank=True)
+    # student_class = models.ForeignKey(Class, on_delete=models.CASCADE)
+    # student_section = models.ForeignKey(section, on_delete=models.CASCADE)
     student_roll_number = models.CharField(max_length=10, null=True, blank=True)
     student_reg_number = models.CharField(max_length=20, null=True, blank=True)
     student_previous_school = models.CharField(max_length=20, null=True, blank=True)
-    student_previous_school_tc = models.ImageField(default=False)
+    student_previous_school_transfer_certificate = models.ImageField(default=False)
     student_batch_no = models.CharField(max_length=20, null=True, blank=True)
     father_name = models.CharField(max_length=20, null=True, blank=True)
     mother_name = models.CharField(max_length=20, null=True, blank=True)
