@@ -1,8 +1,10 @@
-from django.shortcuts import render , HttpResponse
+from django.shortcuts import render,HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import  SchoolProfile , MediaUpload,Alert
-from .forms import UserRegistrationForm,MediaUploadForm,SchoolProfileForm,Alert_form
+from .models import SchoolProfile
+from .forms import *
 from student.forms import StudentProfileForm
+
+
 
 ##########################################################################################################
 from django.views.generic import CreateView
@@ -52,8 +54,8 @@ class PrincipalSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('dashboard')
-#############################################################################################################
+        return redirect('dashboard')        
+#################################################################################################################
 
 def dashboard(request):
     return render(request, 'account/adminlte/index.html')
@@ -111,24 +113,25 @@ def basic_info(request):
 
 def create_alert(request):
     if request.method == 'POST':
-            alert_form = Alert_form(request.POST)
-            if alert_form.is_valid():
-                alert_form = alert_form.save()
-
-    form = Alert_form(request.POST or None)
-    if form.is_valid():
-        title = form.cleaned_data.get('title')
-        form = Alert.objects.create(title=title)
-
+            form = Alert_form(request.POST)
+            if form.is_valid():
+                form.save(commit=False)
+                form.save()
+            return HttpResponse('submit')
+    else:
+        form = Alert_form()
     return render(request, 'account/adminlte/create_alert.html',{'form': form})
 
 
 
 def create_student(request):
     if request.method == 'POST':
-        form =StudentProfileForm(request.POST)
+        form = StudentProfileForm(data=request.POST)
         if form.is_valid():
+            form.save(commit=False)
             form.save()
+        return HttpResponse('done')
+
     else:
         form = StudentProfileForm()
     return render(request, 'student/adminlte/create_student.html',{'s_form': form})
@@ -141,3 +144,15 @@ def feeds(request):
 
 def add_class(request):
     return render(request, 'account/dashbord/add_class.html',{})
+
+def teacher(request):
+    if request.method=='POST':
+        form = TeacherForm(data=request.POST)
+        if form.is_valid():
+            form.save(commit=False)
+            form.save()
+        return HttpResponse('Teacher Added')
+    else:
+        form = TeacherForm()
+    return render(request,'account/adminlte/teacher_add.html',{'form':form})
+

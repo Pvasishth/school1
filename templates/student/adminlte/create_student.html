@@ -11,7 +11,7 @@
 {# Display a form #}
 
 {% block content  %}
-<form action="{% url 'account:dashboard' %}" method="post" class="form">
+<form action="." method="post" class="form">
   {% csrf_token %}
   {% bootstrap_form s_form %}
   {% buttons %}
