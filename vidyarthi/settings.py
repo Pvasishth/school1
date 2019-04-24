@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     'django_adminlte',
     'django_adminlte_theme',
+    'autofixture',
 
 ]
 AUTH_USER_MODEL = 'account.User'

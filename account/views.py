@@ -1,16 +1,12 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render , HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import SchoolProfile
+from .models import *
 from .forms import *
-from student.forms import StudentProfileForm
-
-
-
-##########################################################################################################
+from student.forms import *
 from django.views.generic import CreateView
-from .forms import StudentSignUpForm, TeacherSignUpForm, PrincipalSignUpForm
+from .forms import *
 from django.contrib.auth import login
-from .models import  User
+from .models import User
 from django.shortcuts import redirect
 
 class StudentSignUpView(CreateView):
@@ -54,8 +50,7 @@ class PrincipalSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('dashboard')        
-#################################################################################################################
+        return redirect('dashboard')
 
 def dashboard(request):
     return render(request, 'account/adminlte/index.html')
@@ -144,15 +139,3 @@ def feeds(request):
 
 def add_class(request):
     return render(request, 'account/dashbord/add_class.html',{})
-
-def teacher(request):
-    if request.method=='POST':
-        form = TeacherForm(data=request.POST)
-        if form.is_valid():
-            form.save(commit=False)
-            form.save()
-        return HttpResponse('Teacher Added')
-    else:
-        form = TeacherForm()
-    return render(request,'account/adminlte/teacher_add.html',{'form':form})
-
