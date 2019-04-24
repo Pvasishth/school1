@@ -2,9 +2,8 @@ from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django import forms
 from .models import SchoolProfile,MediaUpload,Alert
+from schoolclasses.models import *
 
-
-##################################################################################################33
 from .models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -81,3 +80,10 @@ class Alert_form(forms.ModelForm):
     class Meta:
         model = Alert
         fields = '__all__'
+
+
+
+class Class_Add_form(forms.ModelForm):
+  class Meta:
+    model = Class
+    fields = '__all__'

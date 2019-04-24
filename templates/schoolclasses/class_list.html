@@ -1,0 +1,36 @@
+{% extends 'account/adminlte/account_base.html' %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+{# Display a form #}
+
+
+{% block content %}
+               <div class="container theme-showcase margin-top-navbar" role="main">
+                    <a class="btn btn-outline-secondary float-right" href="{% url 'account:schoolclass:clas_add' %}" role="button"> Add Class</a>
+        <div class="col-md-12">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                      <th>Class</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for emp in list %}
+                    <tr>
+                      <td>{{ emp.class_name }}</td>
+                    </tr>
+                 {% endfor %}
+                </tbody>
+              </table>
+           </form>
+        </div>
+      </div>
+{% endblock %}

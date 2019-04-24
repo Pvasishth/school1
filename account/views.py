@@ -4,13 +4,11 @@ from .models import  SchoolProfile , MediaUpload,Alert
 from .forms import UserRegistrationForm,MediaUploadForm,SchoolProfileForm,Alert_form
 from student.forms import StudentProfileForm
 
-##########################################################################################################
 from django.views.generic import CreateView
 from .forms import StudentSignUpForm, TeacherSignUpForm, PrincipalSignUpForm
 from django.contrib.auth import login
 from .models import  User
 from django.shortcuts import redirect
-
 class StudentSignUpView(CreateView):
     model = User
     form_class = StudentSignUpForm
@@ -53,7 +51,6 @@ class PrincipalSignUpView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('dashboard')
-#############################################################################################################
 
 def dashboard(request):
     return render(request, 'account/adminlte/index.html')
@@ -138,6 +135,3 @@ def feeds(request):
     alert = Alert.objects.all()
     return render(request, 'account/dashbord/feeds.html',{'alert':alert})
 
-
-def add_class(request):
-    return render(request, 'account/dashbord/add_class.html',{})
