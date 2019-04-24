@@ -1,11 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+from multiselectfield import MultiSelectField
 from django.utils import timezone
-
-#####################################################
 from django.contrib.auth.models import AbstractUser
-#from django.utils.html import escape, mark_safe
 
 class User(AbstractUser):
     is_student = models.BooleanField(default=False)
@@ -15,6 +13,8 @@ class User(AbstractUser):
 
 
 #####################################################
+
+
 
 class SchoolProfile(models.Model):
   principal = models.OneToOneField(User,on_delete = models.CASCADE, related_name = 'schoolprofile')
@@ -56,13 +56,16 @@ class MediaUpload(models.Model):
 
 
 class Alert(models.Model):
-  title = models.CharField(max_length=50)
-  message = models.TextField()
+  title = models.CharField(max_length=50, default=True)
+  message = models.TextField(default=True)
+  image = models.ImageField(null=True,blank=True)
+  video = models.FileField(null=True,blank=True)
   date = models.DateField(auto_now=True)
-  image = models.ImageField(null=True, blank=True)
-  video = models.FileField(null=True, blank=True)
+
 
 
 
   def __str__(self):
     return self.title
+
+

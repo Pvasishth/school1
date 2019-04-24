@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django import forms
 from .models import SchoolProfile,MediaUpload,Alert
 from schoolclasses.models import *
+from student.models import StudentProfile
+from employes.models import *
+
 
 from .models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -42,7 +45,6 @@ class PrincipalSignUpForm(UserCreationForm):
             user.save()
         return user
 
-####################################################################################################3
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -87,3 +89,12 @@ class Class_Add_form(forms.ModelForm):
   class Meta:
     model = Class
     fields = '__all__'
+
+class StudentProfileForm(forms.ModelForm):
+  class Meta:
+    model = StudentProfile
+    fields = '__all__'
+    exclude=('student',)
+
+
+

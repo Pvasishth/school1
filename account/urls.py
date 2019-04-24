@@ -3,7 +3,6 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 from .import views
-
 app_name = 'account'
 
 urlpatterns = [
@@ -23,17 +22,15 @@ urlpatterns = [
   path('account/profile_edit/',views.basic_info ,name = 'edit_profile'),
   path('account/media_upload/',views.edit_media , name = 'edit_media'),
 
-    ###########################################################################################################
   path('account/signup/student/', views.StudentSignUpView.as_view(), name='student_signup'),
   path('account/signup/teacher/', views.TeacherSignUpView.as_view(), name='teacher_signup'),
   path('account/signup/principal/', views.PrincipalSignUpView.as_view(), name='principal_signup'),
-  ##############################################################################################################
 
 
   #All Student url
   path('student/add', views.create_student, name='create_student'),
   path('feeds/', views.feeds, name='feeds'),
-  # path('class/', include('schoolclasses.urls', namespace=)),
   path('', include('schoolclasses.urls')),
+  path('', include('employes.urls')),
 
               ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

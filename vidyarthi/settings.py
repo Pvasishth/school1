@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'account',
     'student',
     'schoolclasses',
+    'employes',
 
     'django_adminlte',
     'django_adminlte_theme',

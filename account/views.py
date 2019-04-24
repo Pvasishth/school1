@@ -1,14 +1,14 @@
 from django.shortcuts import render , HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import  SchoolProfile , MediaUpload,Alert
-from .forms import UserRegistrationForm,MediaUploadForm,SchoolProfileForm,Alert_form
-from student.forms import StudentProfileForm
-
+from .models import *
+from .forms import *
+from student.forms import *
 from django.views.generic import CreateView
-from .forms import StudentSignUpForm, TeacherSignUpForm, PrincipalSignUpForm
+from .forms import *
 from django.contrib.auth import login
-from .models import  User
+from .models import User
 from django.shortcuts import redirect
+
 class StudentSignUpView(CreateView):
     model = User
     form_class = StudentSignUpForm
@@ -108,24 +108,25 @@ def basic_info(request):
 
 def create_alert(request):
     if request.method == 'POST':
-            alert_form = Alert_form(request.POST)
-            if alert_form.is_valid():
-                alert_form = alert_form.save()
-
-    form = Alert_form(request.POST or None)
-    if form.is_valid():
-        title = form.cleaned_data.get('title')
-        form = Alert.objects.create(title=title)
-
+            form = Alert_form(request.POST)
+            if form.is_valid():
+                form.save(commit=False)
+                form.save()
+            return HttpResponse('submit')
+    else:
+        form = Alert_form()
     return render(request, 'account/adminlte/create_alert.html',{'form': form})
 
 
 
 def create_student(request):
     if request.method == 'POST':
-        form =StudentProfileForm(request.POST)
+        form = StudentProfileForm(data=request.POST)
         if form.is_valid():
+            form.save(commit=False)
             form.save()
+        return HttpResponse('done')
+
     else:
         form = StudentProfileForm()
     return render(request, 'student/adminlte/create_student.html',{'s_form': form})
@@ -135,3 +136,6 @@ def feeds(request):
     alert = Alert.objects.all()
     return render(request, 'account/dashbord/feeds.html',{'alert':alert})
 
+
+def add_class(request):
+    return render(request, 'account/dashbord/add_class.html',{})
