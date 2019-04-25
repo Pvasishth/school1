@@ -1,5 +1,5 @@
 from django.shortcuts import render , redirect
-from .models import Class,section
+from .models import *
 from account.forms import Class_Add_form
 from.forms import section_add_form
 # Create your views here.
@@ -37,7 +37,7 @@ def add_section(request):
 
 
 def list_section(request):
-    section_list = section.objects.all()
+    section_list = Section.objects.all()
     return render(request,'schoolclasses/view_section.html',{'list':section_list})
 
 

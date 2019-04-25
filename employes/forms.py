@@ -3,7 +3,6 @@ from django import forms
 from django.forms.widgets import DateInput
 
 
-
 class TeacherForm(forms.ModelForm):
     class Meta:
         model = Teacher

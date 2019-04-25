@@ -109,27 +109,15 @@ def basic_info(request):
 def create_alert(request):
     if request.method == 'POST':
             form = Alert_form(request.POST)
+            print(form)
             if form.is_valid():
-                form.save(commit=False)
                 form.save()
-            return HttpResponse('submit')
+            return HttpResponse('submited')
     else:
         form = Alert_form()
     return render(request, 'account/adminlte/create_alert.html',{'form': form})
 
 
-
-def create_student(request):
-    if request.method == 'POST':
-        form = StudentProfileForm(data=request.POST)
-        if form.is_valid():
-            form.save(commit=False)
-            form.save()
-        return HttpResponse('done')
-
-    else:
-        form = StudentProfileForm()
-    return render(request, 'student/adminlte/create_student.html',{'s_form': form})
 
 
 def feeds(request):

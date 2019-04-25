@@ -5,6 +5,8 @@ from .models import SchoolProfile,MediaUpload,Alert
 from schoolclasses.models import *
 from student.models import StudentProfile
 from employes.models import *
+from django.forms.widgets import DateInput
+
 
 
 from .models import User
@@ -95,6 +97,11 @@ class StudentProfileForm(forms.ModelForm):
     model = StudentProfile
     fields = '__all__'
     exclude=('student',)
+    widgets = {
+        'date_of_birth': DateInput(attrs={'type': 'date'}),
+
+    }
+
 
 
 
