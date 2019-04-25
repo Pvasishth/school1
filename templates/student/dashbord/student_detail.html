@@ -1,0 +1,25 @@
+{% extends 'account/adminlte/account_base.html' %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+{# Display a form #}
+
+
+{% block content %}
+               <div class="container theme-showcase margin-top-navbar" role="main">
+                    <a class="btn btn-outline-secondary float-right" href="{% url 'account:student:create_student' %}" role="button"> Add Student</a>
+        <div class="col-md-12">
+            {% for foo in std_detail %}
+                <h1>{{ foo.student_name }}</h1>
+            {% endfor %}
+
+        </div>
+      </div>
+{% endblock %}
+

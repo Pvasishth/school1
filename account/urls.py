@@ -28,8 +28,8 @@ urlpatterns = [
 
 
   #All Student url
-  path('student/add', views.create_student, name='create_student'),
   path('feeds/', views.feeds, name='feeds'),
+  path('',include('student.urls')),
   path('', include('schoolclasses.urls')),
   path('', include('employes.urls')),
 

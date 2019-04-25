@@ -49,6 +49,10 @@ INSTALLED_APPS = [
     'django_adminlte',
     'django_adminlte_theme',
     'autofixture',
+# https://overiq.com/django-1-10/integrating-ckeditor-in-django/
+    'ckeditor',
+    'ckeditor_uploader',
+    'multiselectfield',
 
 ]
 AUTH_USER_MODEL = 'account.User'
@@ -110,10 +114,22 @@ else:
 }
 
 
+SITE_ID = 1
 
+####################################
+##  CKEDITOR CONFIGURATION ##
+####################################
 
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

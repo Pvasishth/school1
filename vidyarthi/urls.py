@@ -24,7 +24,7 @@ urlpatterns = [
     path('', views.home,name='home' ),
     path('account/', include('account.urls', namespace='account')),
     path('student/',include('student.urls', namespace='student')),
-
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 
 ]
 
