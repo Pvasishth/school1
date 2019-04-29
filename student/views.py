@@ -44,6 +44,7 @@ def student_list_view(request):
     student_list = StudentProfile.objects.all()
     return render(request,'student/dashbord/student_list.html',{'std_info':student_list})
 
-def student_details_view(request):
-    std_detail = StudentProfile.objects.get(id=id)
-    return render(request,'student/dashbord/student_detail.html',{'std_detail':std_detail})
+def student_details_view(request, id):
+    std_detail = StudentProfile.objects.get(pk=id)
+    return render(request,'student/student_profile.html',{'std_detail':std_detail})
+

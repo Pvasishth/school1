@@ -12,7 +12,7 @@ class Class(models.Model):
 
     class_name = models.CharField(max_length=150, null=True, blank=True)
     select_subjects = MultiSelectField(choices=subjects, max_choices=3)
-    content = RichTextUploadingField()
+    content = RichTextUploadingField(null=True, blank=True)
 
 
 
