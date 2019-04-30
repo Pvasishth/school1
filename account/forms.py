@@ -1,20 +1,25 @@
-from django import forms
 from .models import *
 from schoolclasses.models import *
 from student.models import StudentProfile
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.forms.widgets import DateInput
-from .models import User
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
 
 ##################################################################
+# accounts.forms.py
+from django import forms
+from django.contrib.auth.forms import ReadOnlyPasswordHashField
+
+from .models import User
+
+
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ('email',)
+        fields = ('__all__')
+        exclude = ('last_login',)
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -65,63 +70,60 @@ class UserAdminChangeForm(forms.ModelForm):
     password hash display field.
     """
     password = ReadOnlyPasswordHashField()
+
     class Meta:
-        model = user
-        fields = ('email', 'password')
-        # fields = ('email', 'password','is_teacher','is_student','is_principal','is_staff','is_active','is_superuser')
+        model = User
+        fields = ('__all__')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password"]
-
 ####################################################################
-class StudentSignUpForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        model = User
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.is_student = True
-        if commit:
-            user.save()
-        return user
-
-
-class TeacherSignUpForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        model = User
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.is_teacher = True
-        if commit:
-            user.save()
-        return user
-
-class PrincipalSignUpForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        model = User
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.is_principal = True
-        if commit:
-            user.save()
-        return user
-
+# class StudentSignUpForm(forms.ModelForm):
+#     class Meta():
+#         model = User
+#
+#     def save(self, commit=True):
+#         user = super().save(commit=False)
+#         user.is_student = True
+#         if commit:
+#             user.save()
+#         return user
+#
+#
+# class TeacherSignUpForm(forms.ModelForm):
+#     class Meta():
+#         model = User
+#
+#     def save(self, commit=True):
+#         user = super().save(commit=False)
+#         user.is_teacher = True
+#         if commit:
+#             user.save()
+#         return user
+#
+# class PrincipalSignUpForm(forms.ModelForm):
+#     class Meta():
+#         model = User
+#
+#     def save(self, commit=True):
+#         user = super().save(commit=False)
+#         user.is_principal = True
+#         if commit:
+#             user.save()
+#         return user
+#
 
 
 class UserRegistrationForm(forms.ModelForm):
-
-
     password = forms.CharField(label = 'Password', widget = forms.PasswordInput)
     password2 = forms.CharField(label = 'Confirm Password', widget = forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ('username','email','first_name','last_name')
+        fields = ('email',)
 
     def clean_password2(self):
 

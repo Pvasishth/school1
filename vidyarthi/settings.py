@@ -1,5 +1,4 @@
 import os
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES_DIR = os.path.join(BASE_DIR,'templates')
@@ -15,9 +14,12 @@ SECRET_KEY = 'z1vi!=0bpw5&hnvus&jz#x(kd9xb5+uk*=@h0%rw#xt6o+vx0g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+AUTH_USER_MODEL = 'account.User'
+
+
+
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'account.user'
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,7 +46,7 @@ INSTALLED_APPS = [
 ]
 
 LOGIN_REDIRECT_URL = 'dashboard'
-LOGIN_URL = 'login'
+LOGIN_URL = 'account:RegisterForm'
 LOGOUT_URL = 'logged_out'
 
 MIDDLEWARE = [

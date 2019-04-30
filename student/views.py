@@ -1,7 +1,9 @@
 from django.shortcuts import render, HttpResponse,redirect
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
 from account.models import *
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from account.decorators import student_required
 from .forms import *
 from.models import *
 # Create your views here.
@@ -17,23 +19,24 @@ def student_basic_info(request):
         basic_student = StudentProfileForm(instance= request.user.studentprofile)
     return render(request,'profile.html',{'basic_student':basic_student})
 
-
 def index(request):
     return render(request,'student/adminlte/index.html',{})
+
 
 
 def feed(request):
     alert = Alert.objects.all()
     return render(request, 'student/dashbord/student_feed.html',{'alert':alert})
 
-
+@login_required
+@student_required
 def create_student(request):
     if request.method == 'POST':
         form = StudentProfileForm(request.POST)
-        print(form)
         if form.is_valid():
             form.save()
-        return redirect('account:student:student_list')
+            user =StudentProfile.objects.create(user=form)
+        return redirect('account:student:student_list',{'user':user})
     else:
         form = StudentProfileForm()
     return render(request, 'student/adminlte/create_student.html',{'s_form': form})

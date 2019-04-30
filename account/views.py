@@ -9,48 +9,48 @@ from django.contrib.auth import login
 from .models import User
 from django.shortcuts import redirect
 
-class StudentSignUpView(CreateView):
-    model = User
-    form_class = StudentSignUpForm
-    template_name = 'registration/signup_form.html'
-
-    def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'student'
-        return super().get_context_data(**kwargs)
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect('dashboard')
-
-class TeacherSignUpView(CreateView):
-    model = User
-    form_class = TeacherSignUpForm
-    template_name = 'registration/signup_form.html'
-
-    def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'teacher'
-        return super().get_context_data(**kwargs)
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect('dashboard')
-
-
-class PrincipalSignUpView(CreateView):
-    model = User
-    form_class = PrincipalSignUpForm
-    template_name = 'registration/signup_form.html'
-
-    def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'principal'
-        return super().get_context_data(**kwargs)
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect('dashboard')
+# class StudentSignUpView(CreateView):
+#     model = User
+#     form_class = StudentSignUpForm
+#     template_name = 'registration/signup_form.html'
+#
+#     def get_context_data(self, **kwargs):
+#         kwargs['user_type'] = 'student'
+#         return super().get_context_data(**kwargs)
+#
+#     def form_valid(self, form):
+#         user = form.save()
+#         login(self.request, user)
+#         return redirect('dashboard')
+#
+# class TeacherSignUpView(CreateView):
+#     model = User
+#     form_class = TeacherSignUpForm
+#     template_name = 'registration/signup_form.html'
+#
+#     def get_context_data(self, **kwargs):
+#         kwargs['user_type'] = 'teacher'
+#         return super().get_context_data(**kwargs)
+#
+#     def form_valid(self, form):
+#         user = form.save()
+#         login(self.request, user)
+#         return redirect('dashboard')
+#
+#
+# class PrincipalSignUpView(CreateView):
+#     model = User
+#     form_class = PrincipalSignUpForm
+#     template_name = 'registration/signup_form.html'
+#
+#     def get_context_data(self, **kwargs):
+#         kwargs['user_type'] = 'principal'
+#         return super().get_context_data(**kwargs)
+#
+#     def form_valid(self, form):
+#         user = form.save()
+#         login(self.request, user)
+#         return redirect('dashboard')
 
 def dashboard(request):
     return render(request, 'account/adminlte/index.html')
@@ -127,3 +127,14 @@ def feeds(request):
 
 def add_class(request):
     return render(request, 'account/dashbord/add_class.html',{})
+
+
+def registerform(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('account:student:student_list')
+    else:
+        form = RegisterForm()
+    return render(request, 'account/dashbord/form.html',{'s_form':form})

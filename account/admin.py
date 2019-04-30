@@ -1,30 +1,9 @@
-from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import *
-
-class MediaUploadAdmin(admin.StackedInline):
-        model = MediaUpload
-        extra = 0
-
-@admin.register(SchoolProfile)
-class SchoolProfileAdmin(admin.ModelAdmin):
-        list_display = ['__str__']
-        inlines = [MediaUploadAdmin]
-
-@admin.register(Alert)
-class Alert(admin.ModelAdmin):
-        list_display = ['__str__']
-
-###########################################
-
 # accounts.admin.py
-
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-
-from .forms import UserAdminCreationForm, UserAdminChangeForm
+from .forms import *
 from .models import User
 
 class UserAdmin(BaseUserAdmin):
@@ -35,34 +14,29 @@ class UserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('email', 'admin')
+    list_display = ('email', 'admin','principal','teacher','student')
     list_filter = ('admin',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ()}),
-        ('Permissions', {'fields': ('admin',)}),
+        ('Personal info', {'fields': ('bio','avatar',)}),
+        ('Permissions', {'fields': ('admin','staff','principal','teacher','student')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2')}
+            'fields': ('email', 'password1', 'password2','avatar','bio','admin','staff','principal','teacher','student')}
         ),
     )
     search_fields = ('email',)
     ordering = ('email',)
     filter_horizontal = ()
 
+
+admin.site.register(User, UserAdmin)
+
+
+
 # Remove Group Model from admin. We're not using it.
 admin.site.unregister(Group)
-
-
-
-######################################################
-
-
-
-
-
-admin.site.register(User,UserAdmin)

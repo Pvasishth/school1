@@ -1,10 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from multiselectfield import MultiSelectField
 from django.utils import timezone
 from django.contrib.auth.models import (
   AbstractUser,
+AbstractBaseUser,
 BaseUserManager
 )
 
@@ -14,86 +14,106 @@ class UserManager(BaseUserManager):
       if not email:
         raise ValueError('User must have Email id')
 
-      user = self.model(
+      user_obj = self.model(
         email=self.normalize_email(email),
       )
-      user.is_superuser=is_admin
-      user.is_staff=is_staff
-      user.is_active=is_active
-      user.set_password(password)
-      user.save(using=self._db)
-      return user
+      user_obj.admin=is_admin
+      user_obj.staff=is_staff
+      user_obj.is_active=is_active
+      user_obj.set_password(password)
+      user_obj.save(using=self._db)
+      return user_obj
 
-    def create_superuser(self, email, password):
+    def create_superuser(self, email, password=None):
         """
         Creates and saves a superuser with the given email and password.
         """
-        user = self.create_user(
+        user_obj = self.create_user(
             email,
             password=password,
         )
-        user.is_staff = True
-        user.is_superuser = True
-        user.save(using=self._db)
-        return user
+        user_obj.staff = True
+        user_obj.admin = True
+        user_obj.save(using=self._db)
+        return user_obj
 
-    def create_staffuser(self, email, password):
+    def create_staffuser(self, email, password=None):
         """
         Creates and saves a staff user with the given email and password.
         """
-        user = self.create_user(
+        user_obj = self.create_user(
             email,
             password=password,
         )
-        user.is_staff= True
-        user.save(using=self._db)
-        return user
+        user_obj.admin= True
+        user_obj.save(using=self._db)
+        return user_obj
 
     def create_principal(self, email,password):
-      user = self.create_user(
+      user_obj = self.create_user(
         email,
         password=password,
       )
-      user.is_principal = True
-      user.save(using=self._db)
-      return user
+      user_obj.principal = True
+      user_obj.save(using=self._db)
+      return user_obj
 
 
 
-    def create_teacher(self, email, password):
-        user = self.create_user(
+    def create_teacher(self, email, password=None):
+        user_obj = self.create_user(
             email,
             password=password,
         )
-        user.is_teacher = True
-        user.save(using=self._db)
-        return user
+        user_obj.teacher = True
+        user_obj.save(using=self._db)
+        return user_obj
 
 
-    def create_student(self, email,password):
-        user = self.create_user(
+    def create_student(self, email,password=None):
+        user_obj = self.create_user(
             email,
             password=password,
         )
-        user.is_student = True
-        user.save(using=self._db)
-        return user
+        user_obj.student = True
+        user_obj.save(using=self._db)
+        return user_obj
 
 
 
 
-class user(AbstractUser):
+class User(AbstractBaseUser):
     email = models.EmailField(
       verbose_name='email address',
       max_length=255,
       unique=True
     )
-    is_active = models.BooleanField(default=True)
-    is_student = models.BooleanField(default=False)
-    is_teacher = models.BooleanField(default=False)
-    is_principal = models.BooleanField(default=False)
+
+    bio =models.TextField(blank=True, null=True)
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    staff = models.BooleanField(default=False)
+    admin = models.BooleanField(default=False)
+    student = models.BooleanField(default=False,
+                                     help_text=(
+                                         'For Students Permissions'
+
+                                     ),
+                                     )
+
+    teacher = models.BooleanField(default=False,
+                                     help_text=(
+                                         'For Teachers Permissions'
+
+                                     ),)
+    principal = models.BooleanField(default=False,
+                                       help_text=(
+                                          'For Principal permissions'
+                                       ),
+                                       )
+
     objects = UserManager()
 
+    EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
@@ -118,27 +138,31 @@ class user(AbstractUser):
       return True
 
     @property
-    def staff(self):
+    def is_staff(self):
       "Is the user a member of staff?"
-      return self.is_staff
+      return self.staff
 
     @property
-    def admin(self):
+    def is_admin(self):
       "Is the user a admin member?"
-      return self.is_superuser
+      return self.admin
 
-    # @property
-    # def is_principal(self):
-    #   return self.is_principal
+    @property
+    def is_principal(self):
+      return self.principal
 
     @property
     def active(self):
       "Is the user active?"
       return self.is_active
 
+    @property
+    def is_teacher(self):
+        return self.teacher
 
-
-
+    @property
+    def is_student(self):
+        return self.student
 
 
 
@@ -147,9 +171,9 @@ class user(AbstractUser):
 
 
 class SchoolProfile(models.Model):
-  principal = models.OneToOneField(user,on_delete = models.CASCADE, related_name = 'schoolprofile')
+  student = models.OneToOneField(User,on_delete = models.CASCADE, related_name = 'schoolprofile')
   school_name = models.CharField(max_length = 20)
-  username = models.CharField(max_length=25, unique=True)
+  # username = models.CharField(max_length=25, unique=True)
   password = models.CharField(max_length=30)
   #address for the school
   state = models.CharField(max_length = 20)
