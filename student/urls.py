@@ -9,7 +9,7 @@ app_name = 'student'
 
 urlpatterns = [
   path('',views.index,name='home'),
-  path('add', views.create_student, name='create_student'),
+  path('student/add', views.create_student, name='create_student'),
   path('view/<int:pk>',views.student_details_view,name='student_detail'),
   path('list/', views.student_list_view, name='student_list'),
   path('basic/',views.student_basic_info , name='basic_student'),

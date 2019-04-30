@@ -88,7 +88,6 @@ class User(AbstractBaseUser):
       max_length=255,
       unique=True
     )
-
     bio =models.TextField(blank=True, null=True)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     staff = models.BooleanField(default=False)
@@ -171,7 +170,7 @@ class User(AbstractBaseUser):
 
 
 class SchoolProfile(models.Model):
-  student = models.OneToOneField(User,on_delete = models.CASCADE, related_name = 'schoolprofile')
+  principal = models.ForeignKey(User,on_delete = models.CASCADE, related_name = 'schoolprofile')
   school_name = models.CharField(max_length = 20)
   # username = models.CharField(max_length=25, unique=True)
   password = models.CharField(max_length=30)
@@ -179,12 +178,12 @@ class SchoolProfile(models.Model):
   state = models.CharField(max_length = 20)
   city = models.CharField(max_length = 20)
   area = models.CharField(max_length = 20)
-  pincode = models.PositiveIntegerField()
+  pincode = models.PositiveIntegerField(null=True)
   landmark = models.CharField(max_length = 20)
 
   #phone number field
   phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
-    message="Phone number must be entered in the format: '8885559997'. Up to 12 digits allowed along with country code.")
+    message="Phone number must be entered in the format: '88855599test@gmail.com97'. Up to 12 digits allowed along with country code.")
   phone_number = models.CharField(validators=[phone_regex], max_length=12)
 
   #school website

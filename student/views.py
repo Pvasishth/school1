@@ -23,13 +23,13 @@ def index(request):
     return render(request,'student/adminlte/index.html',{})
 
 
-
+@login_required
+@student_required
 def feed(request):
     alert = Alert.objects.all()
     return render(request, 'student/dashbord/student_feed.html',{'alert':alert})
 
 @login_required
-@student_required
 def create_student(request):
     if request.method == 'POST':
         form = StudentProfileForm(request.POST)
@@ -39,7 +39,7 @@ def create_student(request):
         return redirect('account:student:student_list',{'user':user})
     else:
         form = StudentProfileForm()
-    return render(request, 'student/adminlte/create_student.html',{'s_form': form})
+    return render(request, 'student/create_student.html', {'s_form': form})
 
 
 

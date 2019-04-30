@@ -58,9 +58,8 @@ def dashboard(request):
 def register(request):
 
     if request.method == 'POST':
-        user_form = UserRegistrationForm(request.POST)
+        user_form = RegisterForm(request.POST)
         if user_form.is_valid():
-
             # Create a new user object but avoid saving yet
             new_user = user_form.save(commit=False)
             # set the chosen password
@@ -68,14 +67,17 @@ def register(request):
             #save the user  objects
             new_user.save()
             SchoolProfile.objects.create(principal=new_user)
-
-
-            return render(request,'account/register_done.html',{'new_user':new_user})
+            return HttpResponse('Done')
+                # render(request,'student/create_student.html',{'new_user':new_user})
     else:
-        user_form = UserRegistrationForm()
+        user_form = RegisterForm()
+    return render(request,'account/dashbord/form.html',{'user_form':user_form})
 
 
-    return render(request,'account/register.html',{'user_form':user_form})
+def login(request):
+    return HttpResponse('hello from login')
+
+
 
 
 
@@ -126,7 +128,7 @@ def feeds(request):
 
 
 def add_class(request):
-    return render(request, 'account/dashbord/add_class.html',{})
+    return render(request, 'account/dashbord/formadd_class.html',{})
 
 
 def registerform(request):

@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 ]
 
 LOGIN_REDIRECT_URL = 'dashboard'
-LOGIN_URL = 'account:RegisterForm'
+LOGIN_URL = 'account:login'
 LOGOUT_URL = 'logged_out'
 
 MIDDLEWARE = [

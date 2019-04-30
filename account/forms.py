@@ -15,11 +15,10 @@ from .models import User
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
-
     class Meta:
         model = User
         fields = ('__all__')
-        exclude = ('last_login',)
+        exclude = ('last_login','staff','bio','admin','student',)
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -73,7 +72,7 @@ class UserAdminChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('__all__')
+        fields = ('email',)
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -116,22 +115,21 @@ class UserAdminChangeForm(forms.ModelForm):
 #         return user
 #
 
-
-class UserRegistrationForm(forms.ModelForm):
-    password = forms.CharField(label = 'Password', widget = forms.PasswordInput)
-    password2 = forms.CharField(label = 'Confirm Password', widget = forms.PasswordInput)
-
-    class Meta:
-        model = User
-        fields = ('email',)
-
-    def clean_password2(self):
-
-        cd = self.cleaned_data
-        if cd['password'] != cd['password2'] :
-            raise forms.ValidationError('PASSWORD DOESN\'T MATCH')
-
-        return cd  
+#
+# class UserRegistrationForm(forms.ModelForm):
+#     password = forms.CharField(label = 'Password', widget = forms.PasswordInput)
+#     password2 = forms.CharField(label = 'Confirm Password', widget = forms.PasswordInput)
+#     class Meta:
+#         model = User
+#         fields = ('email',)
+#
+#     def clean_password2(self):
+#
+#         cd = self.cleaned_data
+#         if cd['password'] != cd['password2'] :
+#             raise forms.ValidationError('PASSWORD DOESN\'T MATCH')
+#
+#         return cd
 
 class MediaUploadForm(forms.ModelForm):
   class Meta:
