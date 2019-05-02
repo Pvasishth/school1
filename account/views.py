@@ -1,57 +1,12 @@
 from django.shortcuts import render , HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import *
 from .forms import *
-from student.forms import *
-from django.views.generic import CreateView,FormView
-from .forms import *
-from django.contrib.auth import login
-from .models import User
+from .decorators import *
 from django.shortcuts import redirect
 
-# class StudentSignUpView(CreateView):
-#     model = User
-#     form_class = StudentSignUpForm
-#     template_name = 'registration/signup_form.html'
-#
-#     def get_context_data(self, **kwargs):
-#         kwargs['user_type'] = 'student'
-#         return super().get_context_data(**kwargs)
-#
-#     def form_valid(self, form):
-#         user = form.save()
-#         login(self.request, user)
-#         return redirect('dashboard')
-#
-# class TeacherSignUpView(CreateView):
-#     model = User
-#     form_class = TeacherSignUpForm
-#     template_name = 'registration/signup_form.html'
-#
-#     def get_context_data(self, **kwargs):
-#         kwargs['user_type'] = 'teacher'
-#         return super().get_context_data(**kwargs)
-#
-#     def form_valid(self, form):
-#         user = form.save()
-#         login(self.request, user)
-#         return redirect('dashboard')
-#
-#
-# class PrincipalSignUpView(CreateView):
-#     model = User
-#     form_class = PrincipalSignUpForm
-#     template_name = 'registration/signup_form.html'
-#
-#     def get_context_data(self, **kwargs):
-#         kwargs['user_type'] = 'principal'
-#         return super().get_context_data(**kwargs)
-#
-#     def form_valid(self, form):
-#         user = form.save()
-#         login(self.request, user)
-#         return redirect('dashboard')
 
+@login_required
+@teacher_required
 def dashboard(request):
     return render(request, 'account/adminlte/index.html')
 
@@ -74,9 +29,9 @@ def register(request):
     return render(request,'account/dashbord/form.html',{'user_form':user_form})
 
 
-def login(request):
-    return HttpResponse('hello from login')
-
+# def login(request):
+#     return HttpResponse('hello from login')
+#
 
 
 
@@ -130,13 +85,20 @@ def feeds(request):
 def add_class(request):
     return render(request, 'account/dashbord/formadd_class.html',{})
 
+from django.contrib.auth.views import LogoutView as DefaultLogoutView, LoginView as DefaultLoginView
+from django.shortcuts import render
 
-class LoginView(FormView):
-    form_class = LoginForm
-    success_url = '/'
+from .forms import LoginForm
+
+
+class LoginView(DefaultLoginView): # FormView
+    authentication_form = LoginForm
     template_name = 'account/login.html'
+    success_url = '/'
 
 
+class LogoutView(DefaultLogoutView):
+    success_url = '/'
 
 
 def registerform(request):

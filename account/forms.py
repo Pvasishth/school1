@@ -135,13 +135,14 @@ class UserAdminChangeForm(forms.ModelForm):
 
 
 
-class LoginForm(forms.Form):
-    email    = forms.EmailField(label='Email')
-    password = forms.CharField(widget=forms.PasswordInput)
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 
-    # def __init__(self, request, *args, **kwargs):
-    #     self.request = request
-    #     super(LoginForm, self).__init__(*args, **kwargs)
+class LoginForm(AuthenticationForm):
+    def confirm_login_allowed(self, user):
+        if not user.is_active:
+            raise forms.ValidationError('This account is inactive', code='inactive')
+
 
 
 class MediaUploadForm(forms.ModelForm):

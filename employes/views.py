@@ -1,7 +1,25 @@
 from django.shortcuts import render,HttpResponse,redirect
 from .forms import *
 from .models import Teacher
-# Create your views here.
+from django.contrib.auth.views import LogoutView as DefaultLogoutView, LoginView as DefaultLoginView
+from django.shortcuts import render
+
+from account.forms import LoginForm
+
+
+
+
+
+
+
+class LoginView(DefaultLoginView): # FormView
+    authentication_form = LoginForm
+    template_name = 'employes/login.html'
+    success_url = '/'
+
+
+class LogoutView(DefaultLogoutView):
+    success_url = '/'
 
 def teacher(request):
     if request.method == 'POST':

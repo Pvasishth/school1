@@ -1,7 +1,5 @@
-from django.shortcuts import render, HttpResponse,redirect
-from django.contrib.auth.models import User
+from django.shortcuts import render,redirect
 from account.models import *
-from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from account.decorators import student_required
 from .forms import *
@@ -18,9 +16,21 @@ def student_basic_info(request):
     else:
         basic_student = StudentProfileForm(instance= request.user.studentprofile)
     return render(request,'profile.html',{'basic_student':basic_student})
-
+@login_required
+@student_required
 def index(request):
     return render(request,'student/adminlte/index.html',{})
+from django.contrib.auth.views import LoginView,LogoutView
+from account.forms import LoginForm
+
+
+class Login(LoginView):
+    authentication_form = LoginForm
+    template_name = 'student/dashbord/student_detail.html'
+    success_url = 'student'
+
+class Logout(LogoutView):
+    success_url = '/'
 
 
 @login_required

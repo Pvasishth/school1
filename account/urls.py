@@ -11,6 +11,7 @@ urlpatterns = [
   path('alert/create/', views.create_alert,name='create_alert'),
   path('register/form/',views.register,name='RegisterForm'),
   path('login/',views.LoginView.as_view(),name='login'),
+  path('logout',views.LogoutView.as_view(),name='logout'),
   # path('login/',auth_views.LoginView.as_view() , name='login'),
   # path('logout/',auth_views.LogoutView.as_view() , name='logged_out'),
   # path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
