@@ -23,7 +23,7 @@ def register(request):
             new_user.save()
             SchoolProfile.objects.create(principal=new_user)
             return HttpResponse('Done')
-                # render(request,'student/create_student.html',{'new_user':new_user})
+
     else:
         user_form = RegisterForm()
     return render(request,'account/dashbord/form.html',{'user_form':user_form})
