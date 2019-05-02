@@ -1,5 +1,6 @@
 from .models import *
 from schoolclasses.models import *
+from django.urls import reverse
 from student.models import StudentProfile
 from django.forms.widgets import DateInput
 # from django.contrib.auth.forms import UserCreationForm
@@ -130,6 +131,18 @@ class UserAdminChangeForm(forms.ModelForm):
 #             raise forms.ValidationError('PASSWORD DOESN\'T MATCH')
 #
 #         return cd
+
+
+
+
+class LoginForm(forms.Form):
+    email    = forms.EmailField(label='Email')
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    # def __init__(self, request, *args, **kwargs):
+    #     self.request = request
+    #     super(LoginForm, self).__init__(*args, **kwargs)
+
 
 class MediaUploadForm(forms.ModelForm):
   class Meta:

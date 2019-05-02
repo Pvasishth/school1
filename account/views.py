@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 from student.forms import *
-from django.views.generic import CreateView
+from django.views.generic import CreateView,FormView
 from .forms import *
 from django.contrib.auth import login
 from .models import User
@@ -129,6 +129,14 @@ def feeds(request):
 
 def add_class(request):
     return render(request, 'account/dashbord/formadd_class.html',{})
+
+
+class LoginView(FormView):
+    form_class = LoginForm
+    success_url = '/'
+    template_name = 'account/login.html'
+
+
 
 
 def registerform(request):

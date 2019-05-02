@@ -16,7 +16,10 @@ DEBUG = True
 
 AUTH_USER_MODEL = 'account.User'
 
-
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 ALLOWED_HOSTS = []
 
@@ -30,11 +33,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'account',
     'student',
     'schoolclasses',
     'employes',
+    'crispy_forms',
 
     'django_adminlte',
     'django_adminlte_theme',
@@ -44,6 +47,12 @@ INSTALLED_APPS = [
     'multiselectfield',
 
 ]
+
+
+SITE_ID = 1
+
+
+
 
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'account:login'
