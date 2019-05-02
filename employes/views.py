@@ -15,11 +15,11 @@ from account.forms import LoginForm
 class LoginView(DefaultLoginView): # FormView
     authentication_form = LoginForm
     template_name = 'employes/login.html'
-    success_url = '/'
+    success_url = 'employes'
 
 
 class LogoutView(DefaultLogoutView):
-    success_url = '/'
+    success_url = 'teacher_add'
 
 def teacher(request):
     if request.method == 'POST':
