@@ -4,7 +4,7 @@ from .models import Teacher
 from django.contrib.auth.views import LogoutView as DefaultLogoutView, LoginView as DefaultLoginView
 from django.shortcuts import render
 
-from account.forms import LoginForm
+from employes.forms import LoginForm
 
 
 
