@@ -26,7 +26,7 @@ def index(request):
 class Login(LoginView):
     authentication_form = LoginForm
     template_name = 'student/login.html'
-    success_url = 'student'
+    success_url = 'student:dashboard'
 
 class Logout(LogoutView):
     success_url = '/'

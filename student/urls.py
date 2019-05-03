@@ -8,9 +8,9 @@ from schoolclasses import urls
 app_name = 'student'
 
 urlpatterns = [
-  path('',views.index,name='home'),
-  path('student/add', views.create_student, name='create_student'),
-  path('student/login',views.Login.as_view(),name='login'),
+  path('',views.index,name='dashboard'),
+  path('add', views.create_student, name='create_student'),
+  path('login',views.Login.as_view(),name='login'),
   path('logout', views.LogoutView.as_view(), name='logout'),
   path('view/<int:pk>',views.student_details_view,name='student_detail'),
   path('list/', views.student_list_view, name='student_list'),
