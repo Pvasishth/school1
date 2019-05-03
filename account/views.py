@@ -91,7 +91,7 @@ from django.shortcuts import render
 from .forms import LoginForm
 
 
-class LoginView(DefaultLoginView): # FormView
+class LoginView(DefaultLoginView):
     authentication_form = LoginForm
     template_name = 'account/login.html'
     success_url = '/'

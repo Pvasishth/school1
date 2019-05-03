@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect
 from account.models import *
 from django.contrib.auth.decorators import login_required
 from account.decorators import student_required
-from .forms import *
+from django.contrib.auth.views import LoginView,LogoutView
+from student.forms import *
 from.models import *
 # Create your views here.
 @login_required
@@ -20,13 +21,11 @@ def student_basic_info(request):
 @student_required
 def index(request):
     return render(request,'student/adminlte/index.html',{})
-from django.contrib.auth.views import LoginView,LogoutView
-from account.forms import LoginForm
 
 
 class Login(LoginView):
     authentication_form = LoginForm
-    template_name = 'student/dashbord/student_detail.html'
+    template_name = 'student/login.html'
     success_url = 'student'
 
 class Logout(LogoutView):
