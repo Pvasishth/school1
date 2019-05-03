@@ -1,5 +1,4 @@
 from django.urls import path, include
-from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 from .import views
@@ -11,7 +10,8 @@ urlpatterns = [
   path('', views.dashboard , name='dashboard'),
   path('alert/create/', views.create_alert,name='create_alert'),
   path('register/form/',views.register,name='RegisterForm'),
-  path('login/',views.login,name='login'),
+  path('login/',views.LoginView.as_view(),name='login'),
+  path('logout',views.LogoutView.as_view(),name='logout'),
   # path('login/',auth_views.LoginView.as_view() , name='login'),
   # path('logout/',auth_views.LogoutView.as_view() , name='logged_out'),
   # path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),

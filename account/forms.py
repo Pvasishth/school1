@@ -1,5 +1,6 @@
 from .models import *
 from schoolclasses.models import *
+from django.urls import reverse
 from student.models import StudentProfile
 from django.forms.widgets import DateInput
 # from django.contrib.auth.forms import UserCreationForm
@@ -130,6 +131,19 @@ class UserAdminChangeForm(forms.ModelForm):
 #             raise forms.ValidationError('PASSWORD DOESN\'T MATCH')
 #
 #         return cd
+
+
+
+
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm
+
+class LoginForm(AuthenticationForm):
+    def confirm_login_allowed(self, user):
+        if not user.is_principal:
+            raise forms.ValidationError('This is only for principal login page', code='inactive')
+
+
 
 class MediaUploadForm(forms.ModelForm):
   class Meta:
