@@ -12,3 +12,17 @@ class TeacherForm(forms.ModelForm):
             'joining_date': DateInput(attrs={'type': 'date'}),
 
         }
+
+
+class HomeworkForm(forms.ModelForm):
+    class Meta:
+        model = Homework
+        fields = '__all__'
+
+
+
+
+class AssignmentForm(forms.ModelForm):
+    class Meta:
+        model = Assignment
+        fields = '__all__'

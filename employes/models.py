@@ -1,7 +1,9 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from multiselectfield import MultiSelectField
-
+from schoolclasses.models import *
+from ckeditor_uploader.fields import  RichTextUploadingField
+from django.urls import reverse
 class Teacher(models.Model):
 
   GENDER_CHOICES  = (('male','MALE'),('female','FEMALE'))
@@ -27,3 +29,28 @@ class Teacher(models.Model):
 
   def __str__(self):
     return self.full_name
+
+
+
+
+class Homework(models.Model):
+  student_class = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='Homework')
+  student_section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='Homework')
+  homework_title = models.CharField(max_length=255)
+  upload_homework = RichTextUploadingField(null=True, blank=True)
+  upload_file = models.FileField(null=True, blank=True)
+  def __str__(self):
+    return self.homework_title
+  # def get_absolute_url(self):
+  #   return reverse('account:employes:homework_list', args=[self.id])
+
+
+class Assignment(models.Model):
+  teacher_name =models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='Assignment')
+  student_class = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='Assignment')
+  student_section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='Assignment')
+  assignment_title = models.CharField(max_length=255)
+  upload_assignment = RichTextUploadingField(null=True, blank=True)
+  upload_file = models.FileField(null=True, blank=True)
+  def __str__(self):
+    return self.assignment_title
