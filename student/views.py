@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from account.models import *
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from account.decorators import student_required
 from django.contrib.auth.views import LoginView,LogoutView
@@ -26,7 +27,15 @@ def index(request):
 class Login(LoginView):
     authentication_form = LoginForm
     template_name = 'student/login.html'
-    success_url = 'student:dashboard'
+    login_url = reverse('student:dashboard')
+
+
+    # def get_context_data(self, **kwargs):
+    #     kwargs['user_type'] = 'student'
+    #     return super().get_context_data(**kwargs)
+    #
+    # def form_valid(self, form):
+    #     return redirect('student:dashboard')
 
 class Logout(LogoutView):
     success_url = '/'

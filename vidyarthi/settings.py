@@ -53,7 +53,7 @@ SITE_ID = 1
 
 
 
-LOGIN_REDIRECT_URL = 'account:dashboard'
+LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = '/'
