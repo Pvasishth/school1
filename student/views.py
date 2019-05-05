@@ -27,7 +27,6 @@ def index(request):
 class Login(LoginView):
     authentication_form = LoginForm
     template_name = 'student/login.html'
-    login_url = reverse('student:dashboard')
 
 
     # def get_context_data(self, **kwargs):
