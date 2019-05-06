@@ -3,8 +3,8 @@ from .forms import *
 from .models import Teacher
 from django.contrib.auth.views import LogoutView as DefaultLogoutView, LoginView as DefaultLoginView
 from django.shortcuts import render
-from account.views import *
-from account.forms import LoginForm
+
+from employes.forms import LoginForm
 
 
 
@@ -15,26 +15,22 @@ from account.forms import LoginForm
 class LoginView(DefaultLoginView): # FormView
     authentication_form = LoginForm
     template_name = 'employes/login.html'
-    success_url = '/'
+    success_url = 'employes'
 
 
 class LogoutView(DefaultLogoutView):
-    success_url = '/'
+    success_url = 'teacher_add'
 
 def teacher(request):
     if request.method == 'POST':
         form = TeacherForm(request.POST)
-        register_form = RegisterForm(request.POST)
-
-        if form.is_valid() and register_form.is_valid():
+        print(form)
+        if form.is_valid():
             form.save()
-            register_form.save()
         return redirect('account:employes:teacher_list')
     else:
         form = TeacherForm()
-        register_form = RegisterForm()
-    return render(request, 'employes/dashbord/teacher_add.html', {'form':form ,
-                                                                  'register_form':register_form})
+    return render(request, 'employes/dashbord/teacher_add.html', {'form':form})
 
 
 def teacher_list_view(request):

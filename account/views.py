@@ -1,12 +1,14 @@
-from django.shortcuts import render , HttpResponse
+from django.shortcuts import render , HttpResponse ,reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from .forms import *
 from .decorators import *
+from .models import *
 from django.shortcuts import redirect
 
 
 @login_required
-@teacher_required
+@principal_required
 def dashboard(request):
     return render(request, 'account/adminlte/index.html')
 
@@ -90,11 +92,25 @@ from django.shortcuts import render
 
 from .forms import LoginForm
 
+#
+#
+# def LoginView(request):
+#     if request.method =='POST':
+#         form = LoginForm(data=request.POST)
+#         if form.is_valid():
+#             user = form.get_user()
+#             login(request,user)
+#             return redirect('account:dashboard')
+#     else:
+#         form = LoginForm()
+#         return render(request, 'account/login.html', {'form':form})
 
-class LoginView(DefaultLoginView): # FormView
+class LoginView(DefaultLoginView):
     authentication_form = LoginForm
     template_name = 'account/login.html'
-    success_url = '/'
+    success_url = 'account/login.html'
+
+
 
 
 class LogoutView(DefaultLogoutView):

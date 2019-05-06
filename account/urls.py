@@ -31,8 +31,4 @@ urlpatterns = [
 
   #All Student url
   path('feeds/', views.feeds, name='feeds'),
-  path('',include('student.urls')),
-  path('', include('schoolclasses.urls')),
-  path('', include('employes.urls')),
-
               ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
