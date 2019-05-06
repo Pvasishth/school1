@@ -222,3 +222,6 @@ class Alert(models.Model):
     return self.title
 
 
+# class Gallery(models.Model):
+#     for i in range(4):
+#         photo_i = models.ImageField(upload_to='photos/%Y/%m/%d/', null=True, blank=True)

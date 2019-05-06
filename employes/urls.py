@@ -15,6 +15,7 @@ urlpatterns = [
   path('homework/list', views.homework_list_view, name='homework_list'),
   path('assignment/list', views.assignment_list_view, name='assignment_list'),
   # path('homework/delete/<int:id>', views.homework_delete, name = 'confirm_delete_homework'),
+  # path('principal/login',name='login')
   path('teacher/login/',views.LoginView.as_view(),name='login'),
   path('teacher/logout',views.LogoutView.as_view(),name='logout'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

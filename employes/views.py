@@ -12,10 +12,11 @@ from employes.forms import LoginForm
 
 
 
+
 class LoginView(DefaultLoginView): # FormView
     authentication_form = LoginForm
     template_name = 'employes/login.html'
-    success_url = 'employes'
+    success_url = 'account:dashboard'
 
 
 class LogoutView(DefaultLogoutView):

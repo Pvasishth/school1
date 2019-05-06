@@ -90,11 +90,28 @@ from django.shortcuts import render
 
 from .forms import LoginForm
 
+# form= self.form_class(request.POST)
+# if form.is_valid():
+#     user=form.save(commit=False)
+#
+#     username = form.cleaned_data['email']
+#     password=form.cleaned_data['password']
+#     user.set_password(password)
+#     user.save()
+#
+#     user = authenticate(username=username,password=password)
+#     if user is not None:
+#         if user.is_principal:
+#             login(request, user)
+#             return redirect('account:dashboard')
+#
+#
+#
 
 class LoginView(DefaultLoginView):
     authentication_form = LoginForm
     template_name = 'account/login.html'
-    success_url = '/'
+    success_url = 'account:dashboard'
 
 
 class LogoutView(DefaultLogoutView):
