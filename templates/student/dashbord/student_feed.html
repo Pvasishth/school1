@@ -1,4 +1,4 @@
-{% extends 'student/adminlte/base.html' %}
+{% extends 'account/adminlte/account_base.html' %}
 
 {% load bootstrap3 %}
 
@@ -105,9 +105,9 @@
                                     <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
                                 </div>
                                 <div class="ml-2">
-                                        <div class="h5 m-0">student mane</div>
+                                        <div class="h5 m-0">Student Name</div>
 
-                                    <div class="h7 text-muted">roll number of the student or if teacher then show subject </div>
+                                    <div class="h7 text-muted">Roll Number of the student or if teacher then show subject </div>
                                 </div>
                             </div>
                             <div>
@@ -135,6 +135,12 @@
 
                             <h5 class="card-title">{{ foo.title }}</h5>
                         </a>
+                    {% for home in homework %}
+                        <a class="card-link" href="#">
+
+                            <h5 class="card-title">{{ home.title }}</h5>
+                        </a>
+                    {% endfor %}
                         <p class="card-text">
                             {{ foo.message }}
                         </p>

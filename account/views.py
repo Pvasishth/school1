@@ -3,10 +3,11 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from .decorators import *
 from django.shortcuts import redirect
+from employes.models import Homework
 
 
 @login_required
-@teacher_required
+@principal_required
 def dashboard(request):
     return render(request, 'account/adminlte/index.html')
 
@@ -29,9 +30,9 @@ def register(request):
     return render(request,'account/dashbord/form.html',{'user_form':user_form})
 
 
-# def login(request):
-#     return HttpResponse('hello from login')
-#
+def login(request):
+    return HttpResponse('hello from login')
+
 
 
 
@@ -76,10 +77,10 @@ def create_alert(request):
 
 
 
-
 def feeds(request):
     alert = Alert.objects.all()
-    return render(request, 'account/dashbord/feeds.html',{'alert':alert})
+    homework = Homework.objects.all()
+    return render(request, 'student/dashbord/student_feed.html', {'homework':homework, 'alert':alert})
 
 
 def add_class(request):
@@ -90,28 +91,13 @@ from django.shortcuts import render
 
 from .forms import LoginForm
 
-# form= self.form_class(request.POST)
-# if form.is_valid():
-#     user=form.save(commit=False)
-#
-#     username = form.cleaned_data['email']
-#     password=form.cleaned_data['password']
-#     user.set_password(password)
-#     user.save()
-#
-#     user = authenticate(username=username,password=password)
-#     if user is not None:
-#         if user.is_principal:
-#             login(request, user)
-#             return redirect('account:dashboard')
-#
-#
-#
 
 class LoginView(DefaultLoginView):
     authentication_form = LoginForm
     template_name = 'account/login.html'
     success_url = 'account:dashboard'
+
+
 
 
 class LogoutView(DefaultLogoutView):

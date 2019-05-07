@@ -6,7 +6,7 @@ app_name = 'account'
 
 urlpatterns = [
   
- 
+
   path('', views.dashboard , name='dashboard'),
   path('alert/create/', views.create_alert,name='create_alert'),
   path('register/form/',views.register,name='RegisterForm'),
@@ -31,8 +31,4 @@ urlpatterns = [
 
   #All Student url
   path('feeds/', views.feeds, name='feeds'),
-  path('',include('student.urls')),
-  path('', include('schoolclasses.urls')),
-  path('', include('employes.urls')),
-
               ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

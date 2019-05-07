@@ -2,9 +2,10 @@ from django.shortcuts import render,HttpResponse,redirect
 from .forms import *
 from .models import Teacher
 from django.contrib.auth.views import LogoutView as DefaultLogoutView, LoginView as DefaultLoginView
-from django.shortcuts import render
-
+from django.shortcuts import render,get_object_or_404
 from employes.forms import LoginForm
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+
 
 
 
@@ -40,7 +41,7 @@ def teacher(request):
         print(form)
         if form.is_valid():
             form.save()
-        return redirect('account:employes:teacher_list')
+        return redirect('employes:teacher_list')
     else:
         form = TeacherForm()
     return render(request, 'employes/dashbord/teacher_add.html', {'form':form})
@@ -85,3 +86,45 @@ def assignment(request):
 def assignment_list_view(request):
     assignment_list = Assignment.objects.all()
     return render(request,'employes/dashbord/assignment_list.html',{'assign_list':assignment_list})
+
+
+def listings(request):
+    if request.method =='POST':
+        form = ListingForm(request.POST)
+        if form.is_valid():
+            form.save()
+        # return HttpResponse('SUBMITTTTTTTTTTTTT')
+            return redirect('employes:listings_list')
+    else:
+        form = ListingForm()
+    return render(request, 'employes/dashbord/listings_add.html', {'list_form':form})
+
+def listings_list_view(request):
+    listings_list = Listing.objects.all()
+    return render(request,'employes/dashbord/listings_list.html' ,{'listings_list':listings_list})
+
+
+#
+# def index(request):
+#   listings = Listing.objects.order_by('-list_date')
+#
+#   # paginator = Paginator(listings, 6)
+#   # page = request.GET.get('page')
+#   # paged_listings = paginator.get_page(page)
+#
+#   context = {
+#     'listings': listings
+#   }
+#
+#   return render(request, 'gallery/photos.html', {'list_form':listings})
+#
+#
+#
+# def listing(request, listing_id):
+#   listing = get_object_or_404(Listing, pk=listing_id)
+#
+#   context = {
+#     'listing': listing
+#   }
+#
+#   return render(request, 'gallery/photo.html', context)

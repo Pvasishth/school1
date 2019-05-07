@@ -4,6 +4,9 @@ from multiselectfield import MultiSelectField
 from schoolclasses.models import *
 from ckeditor_uploader.fields import  RichTextUploadingField
 from django.urls import reverse
+from datetime import datetime
+
+
 class Teacher(models.Model):
 
   GENDER_CHOICES  = (('male','MALE'),('female','FEMALE'))
@@ -54,3 +57,18 @@ class Assignment(models.Model):
   upload_file = models.FileField(null=True, blank=True)
   def __str__(self):
     return self.assignment_title
+
+
+
+class Listing(models.Model):
+  title = models.CharField(max_length=200, null=True, blank=True)
+  description = models.TextField(blank=True)
+  photo_1 = models.ImageField(blank=True)
+  photo_2 = models.ImageField(blank=True)
+  photo_3 = models.ImageField(blank=True)
+  photo_4 = models.ImageField(blank=True)
+  photo_5 = models.ImageField(blank=True)
+  photo_6 = models.ImageField(blank=True)
+  list_date = models.DateTimeField(default=datetime.now, blank=True)
+  def __str__(self):
+    return self.title
