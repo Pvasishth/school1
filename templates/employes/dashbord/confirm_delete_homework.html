@@ -1,0 +1,23 @@
+{% extends 'account/adminlte/account_base.html' %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+{# Display a form #}
+
+
+{% block content %}
+            <div class="col-sm-6 col-sm-offset-3">
+                <form method="POST" action=".">{% csrf_token %}
+                    <p>Are you sure you want to delete : "{{ object.homework_title }}"? </p>
+                    <input type="submit" value="Yes" class="btn btn-danger">
+                    <a href="{{ object.get_absolute_url }}" class="btn btn-secondary">Cancel</a>
+
+                </form>
+            </div>
+{% endblock %}

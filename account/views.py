@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 
 
 @login_required
-@principal_required
+# @principal_required
 def dashboard(request):
     return render(request, 'account/adminlte/index.html')
 
@@ -126,3 +126,35 @@ def registerform(request):
     else:
         form = RegisterForm()
     return render(request, 'account/dashbord/form.html',{'s_form':form})
+
+def academic_calender(request):
+    if request.method == 'POST':
+        form = AcademicCalenderForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+        return HttpResponse('Done')
+    else:
+        form = AcademicCalenderForm()
+    return render(request,'account/adminlte/calender.html',{'form':form})
+
+def time_table(request):
+    if request.method == 'POST':
+        form = TimeTableForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return HttpResponse('Done')
+    else:
+        form = TimeTableForm()
+    return render(request,'account/adminlte/time_table.html',{'form':form})
+
+def syllabus(request):
+    if request.method == 'POST':
+        form = SyllabusForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+    else:
+        form = SyllabusForm()
+    return render(request,'account/adminlte/syllabus.html',{'form':form})
+
+
+

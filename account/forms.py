@@ -184,5 +184,22 @@ class StudentProfileForm(forms.ModelForm):
     }
 
 
+class AcademicCalenderForm(forms.ModelForm):
+    class Meta:
+        model = AcademicCalender
+        fields = '__all__'
+        widgets = {
+            'year': DateInput(attrs={'type':'date'}),
+        }
+
+class TimeTableForm(forms.ModelForm):
+    class Meta:
+        model = TimeTable
+        fields = '__all__'
+
+class SyllabusForm(forms.ModelForm):
+    class Meta:
+        model = Syllabus
+        fields = '__all__'
 
 
