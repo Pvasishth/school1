@@ -1,4 +1,4 @@
-{% extends 'account/adminlte/account_base.html' %}
+{% extends 'employes/adminlte/employes_base.html' %}
 {# Load the tag library #}
 {% load bootstrap3 %}
 
@@ -13,23 +13,24 @@
 
 {% block content %}
                <div class="container theme-showcase margin-top-navbar" role="main">
-                    <a class="btn btn-outline-secondary float-right" href="{% url 'schoolclass:section_add' %}" role="button"> Add Section</a>
-        <div class="col-md-12">
+                    <a class="btn btn-outline-secondary float-right" href="{% url 'student:create_student' %}" role="button"> Add Student</a>
               <table class="table table-striped">
                 <thead>
                   <tr>
-                      <th>Section</th>
-
+                      <th>Alerts</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for emp in list %}
+                  {% for emp in alert_list %}
                     <tr>
-                      <td>{{ emp.section }}</td>
+                      <td><a href="#">{{ emp.title }}</a></td>
+                        <td class="float-right"><a href=".">Delete</a></td>
+                        <td class="float-right" style="margin-right: 0.5px;"><a href=".">Edit</a></td>
                     </tr>
                  {% endfor %}
                 </tbody>
               </table>
+           </form>
         </div>
       </div>
 {% endblock %}

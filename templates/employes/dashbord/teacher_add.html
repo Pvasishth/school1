@@ -13,7 +13,7 @@
 {% block content  %}
 <form  method="POST" class="form">
   {% csrf_token %}
-  {% bootstrap_form form %}
+  {% bootstrap_form user_form %}
   {% buttons %}
     <button type="submit" class="btn btn-primary">
       {% bootstrap_icon "star" %} Submit

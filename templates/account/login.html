@@ -29,7 +29,6 @@
                     {% endfor %}
                 {% endif %}
             {% endblock login_errors %}
-
             {% block login_form %}
                 <form action="" method="post">
                     {% csrf_token %}
@@ -37,11 +36,11 @@
                         <p class="login-box-msg" style="color: red;">{{ message }}</p>
                     {% endif %}
                     <div class="form-group has-feedback">
-                        <input name="username" class="form-control" placeholder="Username">
+                        <input name="username" class="form-control" value="{{ username }}" placeholder="Username">
                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
-                        <input type="password" name="password" class="form-control" placeholder="Password">
+                        <input type="password" name="password" value="{{ password }}" class="form-control" placeholder="Password">
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <div class="row">

@@ -13,7 +13,7 @@ def add_class(request):
         form =Class_Add_form(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('account:schoolclass:class_list')
+        return redirect('school:class_list*')
     else:
         form = Class_Add_form()
     return render(request, 'schoolclasses/add_class.html', {'s_form':form})
@@ -30,7 +30,7 @@ def add_section(request):
         form = section_add_form(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('account:schoolclass:section_view')
+        return redirect('schoolclass:section_view')
     else:
         form = section_add_form()
     return render(request,'schoolclasses/add_section.html',{'form':form})
