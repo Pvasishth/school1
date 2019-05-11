@@ -1,0 +1,144 @@
+{% load adminlte_helpers %}
+<!-- Left side column. contains the sidebar -->
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        {% block user_panel %}
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="{% avatar_url size=90 %}" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p>{% firstof request.user.get_full_name request.user.username %}</p>
+            </div>
+        </div>
+        {% endblock %}
+
+        {% block form %}{% endblock %}
+
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        {% block nav_links_ul %}
+        <ul class="sidebar-menu">
+            {% block nav_links_outer %}
+            <li class="header">{% block nav_heading %}MAIN NAVIGATION{% endblock %}</li>
+
+            {% block nav_links %}
+                <li>
+                    <a href="{% url 'employes:dashbord' %}">
+                        <i class="fa fa-dashboard"></i> <span>Dashbord</span>
+                    </a>
+                </li>
+                    <li>
+                    <a href="{% url 'employes:employes_feeds' %}">
+                        <i class="fa fa-feed"></i> <span>Feeds</span>
+                    </a>
+                </li>
+
+{#                Teacher add Block for teacher Dashbord#}
+
+
+
+{#                <li class="treeview">#}
+{#                    <a href="#">#}
+{#                        <i class="fa fa-group"></i> <span>Teachers</span>#}
+{#                        <span class="pull-right-container">#}
+{#                            <i class="fa fa-angle-left pull-right"></i>#}
+{#                        </span>#}
+{#                    </a>#}
+{#                    <ul class="treeview-menu">#}
+{#                        <li>#}
+{#                            <a href="{% url 'employes:teacher_add' %}">#}
+{#                                <i class="fa fa-plus"></i> Add Teacher#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <a href="{% url 'employes:teacher_list' %}">#}
+{#                                <i class="fa fa-list"></i> View Teachers#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    </ul>#}
+{#                </li>#}
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-graduation-cap"></i> <span>Students</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+{#                        <li>#}
+{#                            <a href="{% url 'student:create_student' %}">#}
+{#                                <i class="fa fa-plus"></i> Add Student#}
+{#                            </a>#}
+{#                        </li>#}
+                         <li>
+                            <a href="{% url 'student:student_list' %}">
+                                <i class="fa fa-list"></i> View Students
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-list"></i> Student Day Attendance
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-group"></i> <span>Alerts</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="{% url 'employes:create_alert' %}">
+                                <i class="fa fa-plus"></i> Add Alert
+                            </a>
+                        </li>
+                         <li>
+                            <a href="{% url 'employes:alert_list' %}">
+                                <i class="fa fa-list"></i> View Alert
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-cc-mastercard"></i> <span>Admin</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+{#                        <li>#}
+{#                            <a href="{% url 'schoolclass:clas_add' %}">#}
+{#                                <i class="fa fa-plus"></i> Add Class#}
+{#                            </a>#}
+{#                        </li>#}
+
+{#                         <li>#}
+{#                            <a href="{% url 'schoolclass:section_add' %}">#}
+{#                                <i class="fa fa-plus"></i> Add Section#}
+{#                            </a>#}
+{#                        </li>#}
+                         <li>
+                            <a href="{% url 'schoolclass:class_list' %}">
+                                <i class="fa fa-list"></i> View Class
+                            </a>
+                        </li>
+                         <li>
+                            <a href="{% url 'schoolclass:section_view' %}">
+                                <i class="fa fa-list"></i> Add Section
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            {% endblock nav_links %}
+            {% endblock nav_links_outer %}
+        </ul>
+        {% endblock nav_links_ul %}
+    </section>
+    <!-- /.sidebar -->
+</aside>
