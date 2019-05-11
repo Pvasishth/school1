@@ -8,7 +8,7 @@ class StudentProfileForm(forms.ModelForm):
   class Meta:
     model = StudentProfile
     fields = '__all__'
-    exclude=('student',)
+    exclude=('user',)
     widgets = {
     'date_of_birth': DateInput(attrs={'type': 'date'}),
      }

@@ -1,13 +1,13 @@
-from django.shortcuts import render , HttpResponse
+from django.shortcuts import render , HttpResponse ,reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from .forms import *
 from .decorators import *
+from .models import *
 from django.shortcuts import redirect
-from employes.models import Homework
 
 
-@login_required
-@principal_required
+
 def dashboard(request):
     return render(request, 'account/adminlte/index.html')
 
@@ -76,6 +76,10 @@ def create_alert(request):
     return render(request, 'account/adminlte/create_alert.html',{'form': form})
 
 
+def alert_list(request):
+    list = Alert.objects.all()
+    return render(request,'account/dashbord/alert_list.html',{'alert':list})
+
 
 def feeds(request):
     alert = Alert.objects.all()
@@ -91,6 +95,18 @@ from django.shortcuts import render
 
 from .forms import LoginForm
 
+#
+#
+# def LoginView(request):
+#     if request.method =='POST':
+#         form = LoginForm(data=request.POST)
+#         if form.is_valid():
+#             user = form.get_user()
+#             login(request,user)
+#             return redirect('account:dashboard')
+#     else:
+#         form = LoginForm()
+#         return render(request, 'account/login.html', {'form':form})
 
 class LoginView(DefaultLoginView):
     authentication_form = LoginForm

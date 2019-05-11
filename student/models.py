@@ -7,7 +7,6 @@ from schoolclasses.models import *
 
 class StudentProfile(models.Model):
     # student_id = models.AutoField(auto_created=True,primary_key=True,serialize=False)
-    school = models.ForeignKey(SchoolProfile, on_delete=models.DO_NOTHING)
     student_name = models.CharField(max_length=20)
     student_class = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='student_class')
     student_section = models.ForeignKey(Section, null=True,blank=True, on_delete=models.CASCADE, related_name='student_section')
