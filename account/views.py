@@ -1,29 +1,29 @@
-from django.shortcuts import render , HttpResponse
+from django.shortcuts import render , HttpResponse ,reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from .forms import *
 from .decorators import *
+from .models import *
+from employes.forms import *
 from django.shortcuts import redirect
+from django.contrib.auth.views import LogoutView as DefaultLogoutView, LoginView as DefaultLoginView
+from django.shortcuts import render
+
+from .forms import LoginForm
 
 
-@login_required
-@teacher_required
+
 def dashboard(request):
     return render(request, 'account/adminlte/index.html')
 
 def register(request):
-
     if request.method == 'POST':
         user_form = RegisterForm(request.POST)
         if user_form.is_valid():
-            # Create a new user object but avoid saving yet
             new_user = user_form.save(commit=False)
-            # set the chosen password
             new_user.set_password('password')
-            #save the user  objects
             new_user.save()
-            SchoolProfile.objects.create(principal=new_user)
             return HttpResponse('Done')
-                # render(request,'student/create_student.html',{'new_user':new_user})
     else:
         user_form = RegisterForm()
     return render(request,'account/dashbord/form.html',{'user_form':user_form})
@@ -75,6 +75,9 @@ def create_alert(request):
     return render(request, 'account/adminlte/create_alert.html',{'form': form})
 
 
+def alert_list(request):
+    list = Alert.objects.all()
+    return render(request,'account/dashbord/alert_list.html',{'alert':list})
 
 
 def feeds(request):
@@ -85,16 +88,26 @@ def feeds(request):
 def add_class(request):
     return render(request, 'account/dashbord/formadd_class.html',{})
 
-from django.contrib.auth.views import LogoutView as DefaultLogoutView, LoginView as DefaultLoginView
-from django.shortcuts import render
 
-from .forms import LoginForm
-
+#
+#
+# def LoginView(request):
+#     if request.method =='POST':
+#         form = LoginForm(data=request.POST)
+#         if form.is_valid():
+#             user = form.get_user()
+#             login(request,user)
+#             return redirect('account:dashboard')
+#     else:
+#         form = LoginForm()
+#         return render(request, 'account/login.html', {'form':form})
 
 class LoginView(DefaultLoginView):
     authentication_form = LoginForm
     template_name = 'account/login.html'
-    success_url = '/'
+    success_url = 'account:dashboard'
+
+
 
 
 class LogoutView(DefaultLogoutView):

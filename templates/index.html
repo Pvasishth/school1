@@ -12,8 +12,8 @@
 {% block content %}
     <div class="jumbotron">
         <a href="{% url 'account:login' %}"><button  class="btn btn-primary">Principal</button></a>
-        <a class="align-center" href="{% url 'account:student:login' %}"><button class="btn btn-danger">Student</button></a>
-        <a class="align-center" href="{% url 'account:employes:login' %}"><button class="btn btn-vk">Teacher</button></a>
+        <a class="align-center" href="{% url 'student:login' %}"><button class="btn btn-danger">Student</button></a>
+        <a class="align-center" href="{% url 'employes:teacher_login' %}"><button class="btn btn-vk">Teacher</button></a>
     </div>
 
 {% endblock %}

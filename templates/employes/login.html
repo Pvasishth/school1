@@ -8,7 +8,7 @@
         {% block logo %}
         <div class="login-logo">
             {# Mirrors block names used in _main_header.html #}
-            <a href="{% block logo_href %}/{% endblock %}">{% block logo_text %}<b>Teacher</b>Login{% endblock %}</a>
+            <a href="{% block logo_href %}/{% endblock %}">{% block logo_text %}<b>Principal</b>Login{% endblock %}</a>
         </div>
         {% endblock %}
         <!-- /.login-logo -->
@@ -29,7 +29,6 @@
                     {% endfor %}
                 {% endif %}
             {% endblock login_errors %}
-
             {% block login_form %}
                 <form action="" method="post">
                     {% csrf_token %}
@@ -37,11 +36,11 @@
                         <p class="login-box-msg" style="color: red;">{{ message }}</p>
                     {% endif %}
                     <div class="form-group has-feedback">
-                        <input name="username" value="{{ email }}" class="form-control" placeholder="Email">
+                        <input name="username" class="form-control" value="{{ username }}" placeholder="Username">
                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
-                        <input type="password" value="{{ password }}" name="password"  class="form-control" placeholder="Password">
+                        <input type="password" name="password" value="{{ password }}" class="form-control" placeholder="Password">
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <div class="row">

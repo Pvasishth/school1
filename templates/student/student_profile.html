@@ -222,20 +222,24 @@
         <!-- User profile -->
         <div class="panel panel-default">
           <div class="panel-heading">
-          <h4 class="panel-title">User profile</h4>
+          <h4 class="panel-title">{{ std_detail.student_name }} profile</h4>
           </div>
           <div class="panel-body">
             <div class="profile__avatar">
               <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="...">
             </div>
             <div class="profile__header">
-              <h4>Richard Roe <small>Administrator</small></h4>
+              <h4>{{std_detail.student_name }}</h4>
               <p class="text-muted">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non nostrum odio cum repellat veniam eligendi rem cumque magnam autem delectus qui.
+                  {% if std_detail in bio %}
+                      {{ std_detail.bio }}
+                      {% else%}
+                      <h2>no bio</h2>
+                  {% endif %}
               </p>
-              <p>
-                <a href="#">bootdey.com</a>
-              </p>
+{#              <p>#}
+{#                <a href="#">bootdey.com</a>#}
+{#              </p>#}
             </div>
           </div>
         </div>
@@ -243,7 +247,7 @@
         <!-- User info -->
         <div class="panel panel-default">
           <div class="panel-heading">
-          <h4 class="panel-title">User info</h4>
+          <h4 class="panel-title">Student info</h4>
           </div>
           <div class="panel-body">
             <table class="table profile__table">

@@ -53,11 +53,10 @@ SITE_ID = 1
 
 
 
-
 LOGIN_REDIRECT_URL = 'account:dashboard'
-LOGIN_URL = 'account:login'
+LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
-LOGOUT_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
