@@ -5,6 +5,9 @@ from .forms import *
 from .decorators import *
 from .models import *
 from django.shortcuts import redirect
+from django.conf import settings
+from django.core.mail import send_mail
+
 
 
 @login_required
@@ -67,11 +70,10 @@ def basic_info(request):
 
 def create_alert(request):
     if request.method == 'POST':
-            form = Alert_form(request.POST)
-            print(form)
+            form = Alert_form(request.POST,request.FILES or None)
             if form.is_valid():
                 form.save()
-            return HttpResponse('submited')
+            return HttpResponse('success')
     else:
         form = Alert_form()
     return render(request, 'account/adminlte/create_alert.html',{'form': form})
@@ -89,9 +91,9 @@ def add_class(request):
 
 from django.contrib.auth.views import LogoutView as DefaultLogoutView, LoginView as DefaultLoginView
 from django.shortcuts import render
-
 from .forms import LoginForm
 
+from django.core.mail import send_mail
 #
 #
 # def LoginView(request):
@@ -155,6 +157,18 @@ def syllabus(request):
     else:
         form = SyllabusForm()
     return render(request,'account/adminlte/syllabus.html',{'form':form})
+
+def email(request):
+    subject = 'Thank you for registering to our site'
+    message = ' it  means a world to us '
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = ['vineet2603@gmail.com',]
+
+    send_mail( subject, message, email_from, recipient_list )
+
+    return render(request , 'account/email.html')
+
+
 
 
 

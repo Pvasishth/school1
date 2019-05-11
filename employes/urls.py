@@ -17,4 +17,4 @@ urlpatterns = [
   # path('homework/delete/<int:id>', views.homework_delete, name = 'confirm_delete_homework'),
   path('teacher/login/',views.LoginView.as_view(),name='login'),
   path('teacher/logout',views.LogoutView.as_view(),name='logout'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
