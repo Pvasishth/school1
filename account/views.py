@@ -4,31 +4,27 @@ from django.contrib.auth import authenticate, login
 from .forms import *
 from .decorators import *
 from .models import *
+from employes.forms import *
 from django.shortcuts import redirect
-from django.conf import settings
-from django.core.mail import send_mail
+from django.contrib.auth.views import LogoutView as DefaultLogoutView, LoginView as DefaultLoginView
+from django.shortcuts import render
+
+from .forms import LoginForm
 
 
 
-@login_required
-# @principal_required
 def dashboard(request):
     return render(request, 'account/adminlte/index.html')
 
 def register(request):
-
     if request.method == 'POST':
         user_form = RegisterForm(request.POST)
         if user_form.is_valid():
-            # Create a new user object but avoid saving yet
             new_user = user_form.save(commit=False)
-            # set the chosen password
             new_user.set_password('password')
-            #save the user  objects
             new_user.save()
-            SchoolProfile.objects.create(principal=new_user)
             return HttpResponse('Done')
-
+                # render(request,'student/create_student.html',{'new_user':new_user})
     else:
         user_form = RegisterForm()
     return render(request,'account/dashbord/form.html',{'user_form':user_form})
@@ -79,6 +75,9 @@ def create_alert(request):
     return render(request, 'account/adminlte/create_alert.html',{'form': form})
 
 
+def alert_list(request):
+    list = Alert.objects.all()
+    return render(request,'account/dashbord/alert_list.html',{'alert':list})
 
 
 def feeds(request):
@@ -91,6 +90,7 @@ def add_class(request):
 
 from django.contrib.auth.views import LogoutView as DefaultLogoutView, LoginView as DefaultLoginView
 from django.shortcuts import render
+
 from .forms import LoginForm
 
 from django.core.mail import send_mail
@@ -110,7 +110,7 @@ from django.core.mail import send_mail
 class LoginView(DefaultLoginView):
     authentication_form = LoginForm
     template_name = 'account/login.html'
-    success_url = 'account/login.html'
+    success_url = 'account:dashboard'
 
 
 

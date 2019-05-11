@@ -13,7 +13,7 @@
 
 {% block content %}
                <div class="container theme-showcase margin-top-navbar" role="main">
-                    <a class="btn btn-outline-secondary float-right" href="{% url 'account:student:create_student' %}" role="button"> Add Student</a>
+                    <a class="btn btn-outline-secondary float-right" href="{% url 'student:create_student' %}" role="button"> Add Student</a>
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -23,7 +23,7 @@
                 <tbody>
                   {% for emp in std_info %}
                     <tr>
-                      <td><a href="{% url 'student:student_detail' %}">{{ emp.student_name }}</a></td>
+                      <td><a href="#">{{ emp.student_name }}</a></td>
                         <td class="float-right"><a href=".">Delete</a></td>
                         <td class="float-right" style="margin-right: 0.5px;"><a href=".">Edit</a></td>
                     </tr>

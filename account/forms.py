@@ -20,7 +20,7 @@ class RegisterForm(forms.ModelForm):
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
     class Meta:
         model = User
-        fields = ('__all__')
+        fields = ('username','email','password',)
         exclude = ('last_login','staff','bio','admin','student',)
 
     def clean_email(self):

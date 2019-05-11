@@ -2,8 +2,12 @@ from.models import *
 from django import forms
 from django.forms.widgets import DateInput
 from django.contrib.auth.forms import AuthenticationForm
+from django.conf import settings
 
-class TeacherForm(forms.ModelForm):
+User = settings.AUTH_USER_MODEL
+
+
+class Teacher_Profile_form(forms.ModelForm):
     class Meta:
         model = Teacher
         fields = '__all__'

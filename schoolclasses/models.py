@@ -9,7 +9,7 @@ class Class(models.Model):
                 ('Mathematics', 'Mathematics'),
                 ('Science', 'Science'),
                 ('Social_Studies', 'Social_Studies'))
-
+    # TODO: connect sectuin with class
     class_name = models.CharField(max_length=150, null=True, blank=True)
     select_subjects = MultiSelectField(choices=subjects, max_choices=3)
     content = RichTextUploadingField(null=True, blank=True)

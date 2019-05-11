@@ -9,11 +9,12 @@ app_name = 'student'
 
 urlpatterns = [
   path('',views.index,name='dashboard'),
-  path('add', views.create_student, name='create_student'),
-  path('login',views.Login.as_view(),name='student_login'),
-  path('logout', views.LogoutView.as_view(), name='logout'),
-  path('view/<int:pk>',views.student_details_view,name='student_detail'),
+  path('add', views.user_student, name='create_student'),
+  path('create/profile/',views.student_profile,name='student_profile'),
+  path('login',views.LoginView.as_view(),{'template_name': 'student/login.html'},name='login'),
+  path('logout', views.LogoutView.as_view(),  name='logout'),
+  path('view/<int:id>/',views.student_details_view,name='student_detail'),
   path('list/', views.student_list_view, name='student_list'),
   path('basic/',views.student_basic_info , name='basic_student'),
   path('feeds/', views.feed, name='feeds'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

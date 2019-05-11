@@ -25,56 +25,40 @@
 
             {% block nav_links %}
                 <li>
-                    <a href="{% url 'account:dashboard' %}">
+                    <a href="{% url 'employes:dashbord' %}">
                         <i class="fa fa-dashboard"></i> <span>Dashbord</span>
                     </a>
                 </li>
                     <li>
-                    <a href="{% url 'account:feeds' %}">
+                    <a href="{% url 'employes:employes_feeds' %}">
                         <i class="fa fa-feed"></i> <span>Feeds</span>
                     </a>
                 </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-group"></i> <span>Teachers</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href="{% url 'employes:add_teacher' %}">
-                                <i class="fa fa-plus"></i> Add Teacher
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'employes:teacher_list' %}">
-                                <i class="fa fa-list"></i> View Teachers
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'employes:homework_add' %}">
-                                <i class="fa fa-plus"></i> Add Homework
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'employes:homework_list' %}">
-                                <i class="fa fa-list"></i> View Homework
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'employes:assignment_add' %}">
-                                <i class="fa fa-plus"></i> Add Assignment
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'employes:assignment_list' %}">
-                                <i class="fa fa-list"></i> View Assignmnet
-                            </a>
-                        </li>
 
-                    </ul>
-                </li>
+{#                Teacher add Block for teacher Dashbord#}
+
+
+
+{#                <li class="treeview">#}
+{#                    <a href="#">#}
+{#                        <i class="fa fa-group"></i> <span>Teachers</span>#}
+{#                        <span class="pull-right-container">#}
+{#                            <i class="fa fa-angle-left pull-right"></i>#}
+{#                        </span>#}
+{#                    </a>#}
+{#                    <ul class="treeview-menu">#}
+{#                        <li>#}
+{#                            <a href="{% url 'employes:teacher_add' %}">#}
+{#                                <i class="fa fa-plus"></i> Add Teacher#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <a href="{% url 'employes:teacher_list' %}">#}
+{#                                <i class="fa fa-list"></i> View Teachers#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    </ul>#}
+{#                </li>#}
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-graduation-cap"></i> <span>Students</span>
@@ -83,11 +67,11 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li>
-                            <a href="{% url 'student:create_student' %}">
-                                <i class="fa fa-plus"></i> Add Student
-                            </a>
-                        </li>
+{#                        <li>#}
+{#                            <a href="{% url 'student:create_student' %}">#}
+{#                                <i class="fa fa-plus"></i> Add Student#}
+{#                            </a>#}
+{#                        </li>#}
                          <li>
                             <a href="{% url 'student:student_list' %}">
                                 <i class="fa fa-list"></i> View Students
@@ -109,12 +93,12 @@
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="{% url 'account:create_alert' %}">
+                            <a href="{% url 'employes:create_alert' %}">
                                 <i class="fa fa-plus"></i> Add Alert
                             </a>
                         </li>
                          <li>
-                            <a href="{% url 'account:alert_list' %}">
+                            <a href="{% url 'employes:alert_list' %}">
                                 <i class="fa fa-list"></i> View Alert
                             </a>
                         </li>
@@ -128,42 +112,29 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li>
-                            <a href="{% url 'account:academic_calender' %}">
-                                <i class="fa fa-plus"></i> Academic Calender
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'schoolclass:clas_add' %}">
-                                <i class="fa fa-plus"></i> Add Class
-                            </a>
-                        </li>
+{#                        <li>#}
+{#                            <a href="{% url 'schoolclass:clas_add' %}">#}
+{#                                <i class="fa fa-plus"></i> Add Class#}
+{#                            </a>#}
+{#                        </li>#}
 
-                         <li>
-                            <a href="{% url 'schoolclass:section_add' %}">
-                                <i class="fa fa-plus"></i> Add Section
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'account:time_table' %}">
-                                <i class="fa fa-plus"></i> Time Table
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'account:syllabus' %}">
-                                <i class="fa fa-plus"></i> Syllabus
-                            </a>
-                        </li>
-
+{#                         <li>#}
+{#                            <a href="{% url 'schoolclass:section_add' %}">#}
+{#                                <i class="fa fa-plus"></i> Add Section#}
+{#                            </a>#}
+{#                        </li>#}
                          <li>
                             <a href="{% url 'schoolclass:class_list' %}">
                                 <i class="fa fa-list"></i> View Class
                             </a>
                         </li>
+                         <li>
+                            <a href="{% url 'schoolclass:section_view' %}">
+                                <i class="fa fa-list"></i> Add Section
+                            </a>
+                        </li>
                     </ul>
                 </li>
-
-
             {% endblock nav_links %}
             {% endblock nav_links_outer %}
         </ul>

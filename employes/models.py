@@ -1,6 +1,10 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from multiselectfield import MultiSelectField
+from django.conf import settings
+
+user = settings.AUTH_USER_MODEL
+
 from schoolclasses.models import *
 from ckeditor_uploader.fields import  RichTextUploadingField
 from django.urls import reverse
@@ -14,16 +18,16 @@ class Teacher(models.Model):
   #
   #
   full_name = models.CharField(max_length=20)
-  username = models.CharField(max_length=15,unique=True)
+  user = models.OneToOneField(user,on_delete=models.CASCADE,null=True,blank=True,related_name='teacher_profile')
   age = models.PositiveSmallIntegerField()
   gender = models.CharField(max_length=10,choices=GENDER_CHOICES)
-  date_of_birth = models.DateField(max_length=8)
+  date_of_birth = models.DateField(max_length=8,blank=True,null=True)
   # phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
   #   message="Phone number must be entered in the format: '8885559997'. Up to 12 digits allowed along with country code.")
   # mobile_number = models.CharField(validators=[phone_regex],max_length=12)
   subject_expertise =MultiSelectField(choices=SUBJECT_CHOICES)
   experience = models.PositiveSmallIntegerField()
-  joining_date = models.DateField(max_length=8)
+  joining_date = models.DateField(max_length=8,blank=True,null=True)
   email_id = models.EmailField()
   highest_qualification = models.CharField(max_length=20)
 

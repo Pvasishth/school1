@@ -23,12 +23,12 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
-    path('', views.home,name='home'),
+    path('', views.home,name='home' ),
     path('account/', include('account.urls', namespace='account')),
     path('student/',include('student.urls', namespace='student')),
-    path('school/classes/',include('schoolclasses.urls', namespace='schoolclass')),
-    path('employes/',include('employes.urls', namespace='employes')),
-    path('ckeditor/',include('ckeditor_uploader.urls')),
+    path('schoolclasses', include('schoolclasses.urls',namespace='school')),
+    path('employes/', include('employes.urls',namespace='employes')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 
 ]
 
