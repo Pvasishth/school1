@@ -7,6 +7,7 @@ from schoolclasses.models import *
 
 class StudentProfile(models.Model):
     # student_id = models.AutoField(auto_created=True,primary_key=True,serialize=False)
+    school = models.ForeignKey(SchoolProfile, on_delete=models.DO_NOTHING)
     student_name = models.CharField(max_length=20)
     student_class = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='student_class')
     student_section = models.ForeignKey(Section, null=True,blank=True, on_delete=models.CASCADE, related_name='student_section')
@@ -23,7 +24,12 @@ class StudentProfile(models.Model):
     student_email_id = models.EmailField()
     family_photo = models.ImageField(null=True, blank=True)
     date_of_birth = models.DateField()
-    home_address = models.CharField(max_length=60, null=True, blank=True)
+    address = models.CharField(max_length=60, null=True, blank=True)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    pin_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
+                               message="PIN CODE must be entered in the format: '500072'. Up to 6 digits allowed")
+    pin_code = models.CharField(validators=[pin_regex], max_length=6)
 
     def __str__(self):
         return self.student_name

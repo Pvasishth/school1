@@ -13,7 +13,7 @@
 
 {% block content %}
                <div class="container theme-showcase margin-top-navbar" role="main">
-                    <a class="btn btn-outline-secondary float-right" href="{% url 'account:employes:homework_add' %}" role="button"> Add Homework</a>
+                    <a class="btn btn-outline-secondary float-right" href="{% url 'employes:homework_add' %}" role="button"> Add Homework</a>
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -24,7 +24,7 @@
                   {% for home in home_list %}
                     <tr>
                       <td><a href="">{{ home.homework_title }}-{{ home.student_section }}</a></td>
-                        <td class="float-right"><a href="{{ home.get_absolute_url }}">Delete</a></td>
+                        <td class="float-right"><a  href='{% url "employes:confirm_delete_homework" home.id %}'>Delete</a></td>
                         <td class="float-right" ><a href=".">Edit</a></td>
                     </tr>
                  {% endfor %}

@@ -37,7 +37,7 @@ class LoginForm(forms.ModelForm):
 
 
 
-class ListingForm(forms.ModelForm):
+class GalleryForm(forms.ModelForm):
     class Meta:
-        model = Listing
+        model = Gallery
         fields = '__all__'

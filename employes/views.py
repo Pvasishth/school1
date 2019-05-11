@@ -26,12 +26,6 @@ from .models import Teacher, Homework
 
 # Create your views here.
 
-# def homework_delete(request, id):
-#     obj = get_object_or_404(Homework, id=id)
-#     context = {
-#         'object': obj
-#     }
-#     return render(request, 'employes/dashbord/confirm_delete_homework.html', context)
 
 
 
@@ -57,7 +51,7 @@ def homework(request):
         form = HomeworkForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('account:employes:homework_list')
+            return redirect('employes:homework_list')
     else:
         form = HomeworkForm()
     return render(request, 'employes/dashbord/homework_add.html', {'form':form})
@@ -66,18 +60,28 @@ def homework_list_view(request):
     homework_list = Homework.objects.all()
     return render(request,'employes/dashbord/homework_list.html',{'home_list':homework_list})
 
+def homework_delete(request, id):
+    obj = get_object_or_404(Homework, id=id)
+    if request.method == "POST":
+        obj.delete()
+        return redirect('/')
+    context = {
+        'object': obj
+    }
+    return render(request, 'employes/dashbord/confirm_delete_homework.html', context)
+
+
 # def homework_detail_view(request, id):
-#     homework_detail = Homework.objects.get(pk=id)
-#     return render(request, 'employes/dashboard/homework_detail.html', {'detail_view': detail_view})
+#     homework_detail = Homework.objects.get(id=id)
+#     return render(request, 'employes/dashbord/homework_detail.html', {'detail_view': homework_detail})
 
 
-# std_detail = StudentProfile.objects.get(pk=id)
 def assignment(request):
     if request.method == 'POST':
         form = AssignmentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('account:employes:assignment_list')
+            return redirect('employes:assignment_list')
     else:
         form = AssignmentForm()
     return render(request, 'employes/dashbord/assignment_add.html', {'a_form':form})
@@ -88,20 +92,20 @@ def assignment_list_view(request):
     return render(request,'employes/dashbord/assignment_list.html',{'assign_list':assignment_list})
 
 
-def listings(request):
+def gallery(request):
     if request.method =='POST':
-        form = ListingForm(request.POST)
+        form = GalleryForm(request.POST)
         if form.is_valid():
             form.save()
         # return HttpResponse('SUBMITTTTTTTTTTTTT')
-            return redirect('employes:listings_list')
+            return redirect('employes:gallery_list')
     else:
-        form = ListingForm()
-    return render(request, 'employes/dashbord/listings_add.html', {'list_form':form})
+        form = GalleryForm()
+    return render(request, 'employes/dashbord/gallery_add.html', {'gallery_form':form})
 
-def listings_list_view(request):
-    listings_list = Listing.objects.all()
-    return render(request,'employes/dashbord/listings_list.html' ,{'listings_list':listings_list})
+def gallery_list_view(request):
+    gallery_list = Gallery.objects.all()
+    return render(request,'employes/dashbord/gallery_list.html' ,{'gallery_list':gallery_list})
 
 
 #
