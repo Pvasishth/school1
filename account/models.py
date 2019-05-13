@@ -5,11 +5,6 @@ from django.utils import timezone
 from django.contrib.auth.models import (
   AbstractUser)
 
-    @property
-    def is_student(self):
-        return self.student
-
-
 
 
 class User(AbstractUser):

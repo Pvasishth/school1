@@ -29,7 +29,6 @@ from .models import Teacher, Homework
 
 def dashbord(request):
     return render(request,'employes/adminlte/index.html')
-@teacher_required
 def create_alert(request):
     if request.method =='POST':
         form = Alert_form(request.POST)
@@ -40,13 +39,12 @@ def create_alert(request):
         form = Alert_form()
     return render(request,'employes/dashbord/create_alert.html',{'form':form})
 
-@teacher_required
+
 def alert_list(request):
     list = Alert.objects.all()
     render(request,'employes/dashbord/list_alert.html',{'alert_list':list})
 
 
-@teacher_required
 def feeds(request):
     feeds = Alert.objects.all()
     return render(request,'employes/dashbord/teacher_feeds.html',{'feeds':feeds})
