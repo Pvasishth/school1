@@ -122,3 +122,7 @@ def teacher_list_view(request):
 
 
 
+def teacher_profile_detail(request ,id):
+    teacher_profile = Teacher.objects.get(id=id)
+    return render(request,'employes/dashbord/teacher_profile.html',{'teach_profile':teacher_profile})
+

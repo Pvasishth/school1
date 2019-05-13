@@ -15,6 +15,7 @@ urlpatterns = [
   path('teacher/alert/list/',views.alert_list,name='alert_list'),
   path('teacher/add',views.teacher, name='teacher_add'),
   path('teacher/add/profile',views.Teacher_Profile,name='teacher_profile_add'),
+  path('teacher/profile/<int:id>/',views.teacher_profile_detail,name='teacher_profile_detail'),
   path('teacher/list', views.teacher_list_view, name='teacher_list'),
   # path('login/', auth_login, {'template_name': 'employes/login.html', 'authentication_form': LoginForm}),
   # path('teacher/login', views.user_login, name='teacher_login'),
