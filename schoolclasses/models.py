@@ -15,7 +15,6 @@ class Class(models.Model):
     content = RichTextUploadingField(null=True, blank=True)
 
 
-
     def __str__(self):
         return self.class_name
 

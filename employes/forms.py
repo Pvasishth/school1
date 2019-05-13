@@ -17,16 +17,22 @@ class Teacher_Profile_form(forms.ModelForm):
 
         }
 
-
-#
-#
 class LoginForm(AuthenticationForm):
     def confirm_login_allowed(self, user):
         if not user.is_teacher:
             raise forms.ValidationError('This is only for Teacher login page', code='inactive')
 
-#
-#
-# class LoginForm(forms.Form):
-#   username = forms.CharField()
-#   password = forms.CharField(widget=forms.PasswordInput)
+
+class HomeworkForm(forms.ModelForm):
+    class Meta:
+        model = Homework
+        fields = '__all__'
+
+
+
+
+class AssignmentForm(forms.ModelForm):
+    class Meta:
+        model = Assignment
+        fields = '__all__'
+

@@ -1,5 +1,10 @@
+from django_twilio.decorators import twilio_view
+from twilio.twiml.messaging_response import MessagingResponse
+
+
 from django.shortcuts import render , HttpResponse ,reverse
 from django.contrib.auth.decorators import login_required
+
 from django.contrib.auth import authenticate, login
 from .forms import *
 from .decorators import *
@@ -18,7 +23,7 @@ def dashboard(request):
 
 def register(request):
     if request.method == 'POST':
-        user_form = RegisterForm(request.POST)
+        user_form = RegisterForm(data=request.POST, files=request.FILES)
         if user_form.is_valid():
             new_user = user_form.save(commit=False)
             new_user.set_password('password')
@@ -27,13 +32,6 @@ def register(request):
     else:
         user_form = RegisterForm()
     return render(request,'account/dashbord/form.html',{'user_form':user_form})
-
-
-# def login(request):
-#     return HttpResponse('hello from login')
-#
-
-
 
 
 def edit_media(request):
@@ -62,17 +60,33 @@ def basic_info(request):
         basic = SchoolProfileForm(instance = request.user.schoolprofile)
     return render(request,'account/profile.html',{'basic':basic})
 
-
+from django.core.mail import send_mail
 def create_alert(request):
+    sent = False
     if request.method == 'POST':
-            form = Alert_form(request.POST)
-            print(form)
+            form = Alert_form(data=request.POST, files=request.FILES)
             if form.is_valid():
+                cd = form.cleaned_data
+                post_url = request.build_absolute_uri()
+                subject = f"Alert {cd['title']} {post_url}"
+                message = f"{cd['message']}"
+                send_mail(subject, message, 'gupta1997abhishek96@gmail.com', ['gupta1997abhishek@gmail.com'],fail_silently=False)
+                sent = True
+                # def _sms(request):
+                #     client = Client(account_sid, auth_token)
+                #
+                #     client.messages.create(
+                #         body='HELLO',
+                #         to='+919971271794',
+                #         from_='+17209243923'
+                #     )
+
                 form.save()
-            return HttpResponse('submited')
+            return HttpResponse('success')
     else:
         form = Alert_form()
-    return render(request, 'account/adminlte/create_alert.html',{'form': form})
+    return render(request, 'account/adminlte/create_alert.html',{'form': form,
+                                                                 'sent':sent})
 
 
 def alert_list(request):
@@ -88,19 +102,13 @@ def feeds(request):
 def add_class(request):
     return render(request, 'account/dashbord/formadd_class.html',{})
 
+from django.contrib.auth.views import LogoutView as DefaultLogoutView, LoginView as DefaultLoginView
+from django.shortcuts import render
 
-#
-#
-# def LoginView(request):
-#     if request.method =='POST':
-#         form = LoginForm(data=request.POST)
-#         if form.is_valid():
-#             user = form.get_user()
-#             login(request,user)
-#             return redirect('account:dashboard')
-#     else:
-#         form = LoginForm()
-#         return render(request, 'account/login.html', {'form':form})
+from .forms import LoginForm
+
+from django.core.mail import send_mail
+
 
 class LoginView(DefaultLoginView):
     authentication_form = LoginForm
@@ -116,10 +124,72 @@ class LogoutView(DefaultLogoutView):
 
 def registerform(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = RegisterForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
         return redirect('account:student:student_list')
     else:
         form = RegisterForm()
     return render(request, 'account/dashbord/form.html',{'s_form':form})
+
+def academic_calender(request):
+    if request.method == 'POST':
+        form = AcademicCalenderForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+        return HttpResponse('Done')
+    else:
+        form = AcademicCalenderForm()
+    return render(request,'account/adminlte/calender.html',{'form':form})
+
+def time_table(request):
+    if request.method == 'POST':
+        form = TimeTableForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return HttpResponse('Done')
+    else:
+        form = TimeTableForm()
+    return render(request,'account/adminlte/time_table.html',{'form':form})
+
+def syllabus(request):
+    if request.method == 'POST':
+        form = SyllabusForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+    else:
+        form = SyllabusForm()
+    return render(request,'account/adminlte/syllabus.html',{'form':form})
+
+# def _send(request):
+#         try:
+#             # twilio version 6
+#             from twilio.rest import Client
+#         except ImportError:
+#             try:
+#                 # twillio version < 6
+#                 from twilio.rest import TwilioRestClient as Client
+#             except ImportError:
+#                 raise Exception('Twilio is required for sending a TwilioTextNotification.')
+#
+#         try:
+#             account_sid = settings.TWILIO_ACCOUNT_SID
+#             auth_token = settings.TWILIO_AUTH_TOKEN
+#         except AttributeError:
+#             raise Exception(
+#                 'TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN settings are required for sending a TwilioTextNotification'
+#             )
+#
+#         client = Client(account_sid, auth_token)
+#
+#         client.messages.create(
+#             body='HELLO',
+#             to='+919971271794',
+#             from_='+17209243923'
+#         )
+
+
+
+
+
+

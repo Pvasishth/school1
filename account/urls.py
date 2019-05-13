@@ -13,6 +13,10 @@ urlpatterns = [
   path('register/form/',views.register,name='RegisterForm'),
   path('login/',views.LoginView.as_view(),name='login'),
   path('logout',views.LogoutView.as_view(),name='logout'),
+  path('academic/calender/',views.academic_calender,name='academic_calender'),
+  path('timetable/',views.time_table,name='time_table'),
+  path('syllabus/upload/', views.syllabus, name='syllabus'),
+
   # path('login/',auth_views.LoginView.as_view() , name='login'),
   # path('logout/',auth_views.LogoutView.as_view() , name='logged_out'),
   # path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
@@ -32,4 +36,4 @@ urlpatterns = [
 
   #All Student url
   path('feeds/', views.feeds, name='feeds'),
-              ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

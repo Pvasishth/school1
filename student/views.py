@@ -23,10 +23,10 @@ def index(request):
     return render(request,'student/adminlte/index.html',{})
 
 
-# class Login(LoginView):
-#     authentication_form = LoginForm
-#     template_name = 'student/login.html'
-#     success_url = 'student:dashboard'
+class Login(LoginView):
+    authentication_form = LoginForm
+    template_name = 'student/login.html'
+    success_url = 'student:dashboard'
 
 class Logout(LogoutView):
     success_url = '/'

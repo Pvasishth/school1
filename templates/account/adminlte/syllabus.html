@@ -11,14 +11,10 @@
 {# Display a form #}
 
 {% block content  %}
-    {% if sent %}
-        {% elif form.checkbox.value %}
-        <h1>Hello</h1>
-    {% endif %}
-<form action="." method="post" class="form" enctype="multipart/form-data">
+<form action="." method="post" class="form">
   {% csrf_token %}
   {% bootstrap_form form %}
-    {% buttons %}
+  {% buttons %}
     <button type="submit" class="btn btn-primary">
       {% bootstrap_icon "star" %} Submit
     </button>

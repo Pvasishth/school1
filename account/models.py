@@ -2,6 +2,8 @@ from django.db import models
 from django.core.validators import RegexValidator
 from multiselectfield import MultiSelectField
 from django.utils import timezone
+from employes.models import *
+from datetime import datetime
 from django.contrib.auth.models import (
   AbstractUser)
 
@@ -55,16 +57,39 @@ class MediaUpload(models.Model):
 
 
 class Alert(models.Model):
-  title = models.CharField(max_length=50)
-  message = models.TextField()
-  image = models.ImageField(null=True,blank=True)
-  video = models.FileField(null=True,blank=True)
-  date = models.DateField(auto_now=True)
+    title = models.CharField(max_length=50)
+    message = models.TextField()
+    image = models.ImageField(null=True,blank=True,upload_to='alert_image/')
+    video = models.FileField(null=True,blank=True,upload_to='video/')
+    date = models.DateField(auto_now=True)
+    send_mail = models.BooleanField(default=False)
+
+    def __str__(self):
+      return self.title
+
+class AcademicCalender(models.Model):
+    year = models.DateField()
+    whole_year_calender = models.FileField(null=True,blank=True,upload_to='calender/')
+    sepcial_holidays = models.FileField(null=True,blank=True,upload_to='calender/')
+
+    def __int__(self):
+        return  self.year
+
+class TimeTable(models.Model):
+    student_class = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='TimeTable')
+    student_section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='TimeTable')
+    upload_timetable = models.ImageField(null=True,blank=True,upload_to='timetable/')
+
+
+class Syllabus(models.Model):
+
+  student_class = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='Syllabus')
+  upload_syllabus = models.ImageField(null=True,blank=True,upload_to='syllabus/')
 
 
 
 
-  def __str__(self):
-    return self.title
+
+
 
 
