@@ -62,6 +62,7 @@ class Alert(models.Model):
     image = models.ImageField(null=True,blank=True,upload_to='alert_image/')
     video = models.FileField(null=True,blank=True,upload_to='video/')
     date = models.DateField(auto_now=True)
+    send_mail = models.BooleanField(default=False)
 
     def __str__(self):
       return self.title

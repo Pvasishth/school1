@@ -72,6 +72,15 @@ def create_alert(request):
                 message = f"{cd['message']}"
                 send_mail(subject, message, 'gupta1997abhishek96@gmail.com', ['gupta1997abhishek@gmail.com'],fail_silently=False)
                 sent = True
+                # def _sms(request):
+                #     client = Client(account_sid, auth_token)
+                #
+                #     client.messages.create(
+                #         body='HELLO',
+                #         to='+919971271794',
+                #         from_='+17209243923'
+                #     )
+
                 form.save()
             return HttpResponse('success')
     else:
@@ -152,15 +161,32 @@ def syllabus(request):
         form = SyllabusForm()
     return render(request,'account/adminlte/syllabus.html',{'form':form})
 
-
-@twilio_view
-def sms(request):
-    name = request.POST.get('Body', '')
-    msg = 'Hey %s, how are you today?' % (name)
-    r = Response()
-    r.message(msg)
-    return r
-
+# def _send(request):
+#         try:
+#             # twilio version 6
+#             from twilio.rest import Client
+#         except ImportError:
+#             try:
+#                 # twillio version < 6
+#                 from twilio.rest import TwilioRestClient as Client
+#             except ImportError:
+#                 raise Exception('Twilio is required for sending a TwilioTextNotification.')
+#
+#         try:
+#             account_sid = settings.TWILIO_ACCOUNT_SID
+#             auth_token = settings.TWILIO_AUTH_TOKEN
+#         except AttributeError:
+#             raise Exception(
+#                 'TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN settings are required for sending a TwilioTextNotification'
+#             )
+#
+#         client = Client(account_sid, auth_token)
+#
+#         client.messages.create(
+#             body='HELLO',
+#             to='+919971271794',
+#             from_='+17209243923'
+#         )
 
 
 

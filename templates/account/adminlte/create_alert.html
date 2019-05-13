@@ -12,6 +12,7 @@
 
 {% block content  %}
     {% if sent %}
+        {% elif form.checkbox.value %}
         <h1>Hello</h1>
     {% endif %}
 <form action="." method="post" class="form" enctype="multipart/form-data">
