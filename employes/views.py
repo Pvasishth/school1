@@ -140,3 +140,7 @@ def assignment_list_view(request):
     assignment_list = Assignment.objects.all()
     return render(request,'employes/dashbord/assignment_list.html',{'assign_list':assignment_list})
 
+def teacher_profile_detail(request ,id):
+    teacher_profile = Teacher.objects.get(id=id)
+    return render(request,'employes/dashbord/teacher_profile.html',{'teach_profile':teacher_profile})
+

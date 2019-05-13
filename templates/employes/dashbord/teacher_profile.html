@@ -1,9 +1,7 @@
-{#here is the the template link where you can find it#}
-{#https://bootsnipp.com/snippets/359lB#}
 {% extends 'account/adminlte/account_base.html' %}
-{# Load the tag library #}
-{% load static %}
 {% block style %}
+
+
     <style>
     body{
     margin-top:20px;
@@ -209,7 +207,8 @@
 }
     </style>
 {% endblock %}
-{% block content  %}
+{% block content %}
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -222,24 +221,20 @@
         <!-- User profile -->
         <div class="panel panel-default">
           <div class="panel-heading">
-          <h4 class="panel-title">{{ std_detail.student_name }} profile</h4>
+          <h4 class="panel-title">Teacher profile</h4>
           </div>
           <div class="panel-body">
             <div class="profile__avatar">
-              <img src="{{ std_detail.family_photo }}" alt="...">
+              <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="...">
             </div>
             <div class="profile__header">
-              <h4>{{std_detail.student_name }} <small>{{ std_detail.student_reg_number }}</small></h4>
+              <h4>{{ teach_profile.full_name }} <small>{{ teach_profile.age }}</small></h4>
               <p class="text-muted">
-                  {% if std_detail in bio %}
-                      {{ std_detail.bio }}
-                      {% else%}
-                      <h2>no bio</h2>
-                  {% endif %}
+                {{ teach_profile.bio }}
               </p>
-{#              <p>#}
+              <p>
 {#                <a href="#">bootdey.com</a>#}
-{#              </p>#}
+              </p>
             </div>
           </div>
         </div>
@@ -247,32 +242,29 @@
         <!-- User info -->
         <div class="panel panel-default">
           <div class="panel-heading">
-          <h4 class="panel-title">Student info</h4>
+          <h4 class="panel-title">Teacher info</h4>
           </div>
           <div class="panel-body">
             <table class="table profile__table">
               <tbody>
                 <tr>
-                  <th><strong>Class</strong></th>
-                  <td>{{ std_detail.student_class }}</td>
-                 </tr>
-                <tr>
-                  <th><strong>Section</strong></th>
-                  <td>{{ std_detail.student_section }}</td>
+                  <th><strong>Gender</strong></th>
+                  <td>{{ teach_profile.gender }}</td>
                 </tr>
                 <tr>
-                  <th><strong>Roll No.</strong></th>
-                  <td>{{ std_detail.student_roll_number }}</td>
+                  <th><strong>Joining Date</strong></th>
+                  <td>{{ teach_profile.joining_date }}</td>
+                </tr>
+                <tr>
+                  <th><strong>Subject Expertise</strong></th>
+                  <td>{{ teach_profile.subject_expertise }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-
-{#        TODO: the community sections is commented you can user it for any other feature for same#}
-
-{#        <!-- Community -->#}
+        <!-- Community -->
 {#        <div class="panel panel-default">#}
 {#          <div class="panel-heading">#}
 {#          <h4 class="panel-title">Community</h4>#}
@@ -377,22 +369,22 @@
         <!-- Contact info -->
         <div class="profile__contact-info">
           <div class="profile__contact-info-item">
-{#            <div class="profile__contact-info-icon">#}
-{#              <i class="fa fa-phone"></i>#}
-{#            </div>#}
-{#            <div class="profile__contact-info-body">#}
-{#              <h5 class="profile__contact-info-heading">Work </h5>#}
-{#              (000)987-65-43#}
-{#            </div>#}
-{#          </div>#}
-          <div class="profile__contact-info-item">
             <div class="profile__contact-info-icon">
               <i class="fa fa-phone"></i>
             </div>
             <div class="profile__contact-info-body">
-              <h5 class="profile__contact-info-heading">Mobile number</h5>
-              {{ std_detail.guardian_mobile_number }}
+              <h5 class="profile__contact-info-heading">Teacher number</h5>
+              {{ teach_profile.mobile_number }}
             </div>
+          </div>
+          <div class="profile__contact-info-item">
+            <div class="profile__contact-info-icon">
+              <i class="fa fa-phone"></i>
+            </div>
+{#            <div class="profile__contact-info-body">#}
+{#              <h5 class="profile__contact-info-heading">Mobile number</h5>#}
+{#              (000)987-65-43#}
+{#            </div>#}
           </div>
           <div class="profile__contact-info-item">
             <div class="profile__contact-info-icon">
@@ -400,7 +392,7 @@
             </div>
             <div class="profile__contact-info-body">
               <h5 class="profile__contact-info-heading">E-mail address</h5>
-              <a href="mailto:admin@domain.com">{{ std_detail.student_email_id }}</a>
+              <a href="mailto:{{ teach_profile.email_id }}">{{ teach_profile.email_id }}</a>
             </div>
           </div>
           <div class="profile__contact-info-item">
@@ -408,8 +400,8 @@
               <i class="fa fa-map-marker"></i>
             </div>
             <div class="profile__contact-info-body">
-              <h5 class="profile__contact-info-heading">Student address</h5>
-              {{ std_detail.home_address }}
+              <h5 class="profile__contact-info-heading">Teacher address</h5>
+              {{ teach_profile.address }}
             </div>
           </div>
         </div>
