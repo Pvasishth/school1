@@ -1,5 +1,10 @@
+from django_twilio.decorators import twilio_view
+from twilio.twiml.messaging_response import MessagingResponse
+
+
 from django.shortcuts import render , HttpResponse ,reverse
 from django.contrib.auth.decorators import login_required
+
 from django.contrib.auth import authenticate, login
 from .forms import *
 from .decorators import *
@@ -18,23 +23,15 @@ def dashboard(request):
 
 def register(request):
     if request.method == 'POST':
-        user_form = RegisterForm(request.POST)
+        user_form = RegisterForm(data=request.POST, files=request.FILES)
         if user_form.is_valid():
             new_user = user_form.save(commit=False)
             new_user.set_password('password')
             new_user.save()
             return HttpResponse('Done')
-                # render(request,'student/create_student.html',{'new_user':new_user})
     else:
         user_form = RegisterForm()
     return render(request,'account/dashbord/form.html',{'user_form':user_form})
-
-
-# def login(request):
-#     return HttpResponse('hello from login')
-#
-
-
 
 
 def edit_media(request):
@@ -63,16 +60,24 @@ def basic_info(request):
         basic = SchoolProfileForm(instance = request.user.schoolprofile)
     return render(request,'account/profile.html',{'basic':basic})
 
-
+from django.core.mail import send_mail
 def create_alert(request):
+    sent = False
     if request.method == 'POST':
-            form = Alert_form(request.POST,request.FILES or None)
+            form = Alert_form(data=request.POST, files=request.FILES)
             if form.is_valid():
+                cd = form.cleaned_data
+                post_url = request.build_absolute_uri()
+                subject = f"Alert {cd['title']} {post_url}"
+                message = f"{cd['message']}"
+                send_mail(subject, message, 'gupta1997abhishek96@gmail.com', ['gupta1997abhishek@gmail.com'],fail_silently=False)
+                sent = True
                 form.save()
             return HttpResponse('success')
     else:
         form = Alert_form()
-    return render(request, 'account/adminlte/create_alert.html',{'form': form})
+    return render(request, 'account/adminlte/create_alert.html',{'form': form,
+                                                                 'sent':sent})
 
 
 def alert_list(request):
@@ -94,18 +99,7 @@ from django.shortcuts import render
 from .forms import LoginForm
 
 from django.core.mail import send_mail
-#
-#
-# def LoginView(request):
-#     if request.method =='POST':
-#         form = LoginForm(data=request.POST)
-#         if form.is_valid():
-#             user = form.get_user()
-#             login(request,user)
-#             return redirect('account:dashboard')
-#     else:
-#         form = LoginForm()
-#         return render(request, 'account/login.html', {'form':form})
+
 
 class LoginView(DefaultLoginView):
     authentication_form = LoginForm
@@ -121,7 +115,7 @@ class LogoutView(DefaultLogoutView):
 
 def registerform(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = RegisterForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
         return redirect('account:student:student_list')
@@ -131,7 +125,7 @@ def registerform(request):
 
 def academic_calender(request):
     if request.method == 'POST':
-        form = AcademicCalenderForm(request.POST,request.FILES)
+        form = AcademicCalenderForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
         return HttpResponse('Done')
@@ -151,22 +145,23 @@ def time_table(request):
 
 def syllabus(request):
     if request.method == 'POST':
-        form = SyllabusForm(request.POST,request.FILES)
+        form = SyllabusForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
     else:
         form = SyllabusForm()
     return render(request,'account/adminlte/syllabus.html',{'form':form})
 
-def email(request):
-    subject = 'Thank you for registering to our site'
-    message = ' it  means a world to us '
-    email_from = settings.EMAIL_HOST_USER
-    recipient_list = ['vineet2603@gmail.com',]
 
-    send_mail( subject, message, email_from, recipient_list )
+@twilio_view
+def sms(request):
+    name = request.POST.get('Body', '')
+    msg = 'Hey %s, how are you today?' % (name)
+    r = Response()
+    r.message(msg)
+    return r
 
-    return render(request , 'account/email.html')
+
 
 
 

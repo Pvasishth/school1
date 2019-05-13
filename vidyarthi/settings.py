@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'multiselectfield',
+    'django_twilio',
 
 ]
 
@@ -185,5 +186,8 @@ STATICFILES_DIRS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+TWILIO_ACCOUNT_SID = "ACd16434d4fe17f62a585339ec514806c6"
+TWILIO_AUTH_TOKEN = "32ca6b9d19f992bc6f5a6b631970f097"
 
 
