@@ -67,24 +67,23 @@ def create_alert(request):
             form = Alert_form(data=request.POST, files=request.FILES)
             if form.is_valid():
                 cd = form.cleaned_data
+                print(cd['mail_check'])
                 post_url = request.build_absolute_uri()
                 subject = f"Alert {cd['title']} {post_url}"
+                print(subject)
                 message = f"{cd['message']}"
-                send_mail(subject, message, 'gupta1997abhishek96@gmail.com', ['gupta1997abhishek@gmail.com'],fail_silently=False)
-                sent = True
-                # def _sms(request):
-                #     client = Client(account_sid, auth_token)
-                #
-                #     client.messages.create(
-                #         body='HELLO',
-                #         to='+919971271794',
-                #         from_='+17209243923'
-                #     )
-
-                form.save()
-            return HttpResponse('success')
+                if cd['mail_check']:
+                    print(form.cleaned_data)
+                    send_mail(subject, message, 'gupta1997abhishek96@gmail.com', ['gupta1997abhishek@gmail.com','paras.vasisth@gmail.com'],fail_silently=False)
+                    sent = True
+                    form.save()
+                else:
+                    form.save()
+            else:
+                 return HttpResponse('invalid')
+            return HttpResponse('done')
     else:
-        form = Alert_form()
+       form = Alert_form()
     return render(request, 'account/adminlte/create_alert.html',{'form': form,
                                                                  'sent':sent})
 
